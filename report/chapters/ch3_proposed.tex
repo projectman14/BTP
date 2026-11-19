@@ -1,0 +1,186 @@
+\chapter{Proposed Work: Design and Implementation of the Memory Layer}
+
+\section{Overview of the Methodology}
+Phase 1 proposed a memory layer that (i) converts user interactions into embeddings, (ii) stores them in a
+vector database, (iii) retrieves the top-$k$ relevant memories at query time and (iv) injects them into the
+prompt. Phase 2 implements this design and extends it with the components listed as future work in Phase 1.
+Figure~\ref{fig:arch} shows the resulting architecture. Conversation turns enter on the left through the
+\emph{write path}; questions enter through the \emph{read path}, which is a multi-stage retrieval pipeline
+ending in a grounding gate.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,
+  box/.style={draw=black!60,fill=boxfill,rounded corners=2pt,align=center,font=\footnotesize,
+              minimum height=9mm,inner sep=2pt,text width=27mm},
+  store/.style={draw=black!60,fill=white,cylinder,shape border rotate=90,aspect=0.25,align=center,
+                font=\footnotesize,minimum height=10mm,text width=22mm,inner sep=2pt},
+  lbl/.style={font=\scriptsize\itshape,text=black!60},
+  arr/.style={-{Stealth[length=2mm]},thick,draw=black!70}
+]
+% ---- write path (top row) and the three stores
+\node[box] (turn) at (0,0) {Conversation turn\\(user / assistant)};
+\node[box] (norm) at (3.6,0) {Normalisation\\(third person)};
+\node[box] (imp)  at (7.2,0) {Importance scoring\\$+$ pruning};
+\node[box] (ent)  at (10.8,0) {Entity\\extraction};
+\node[store] (vec) at (3.6,-2.1) {FAISS\\vector index};
+\node[store] (bm)  at (7.2,-2.1) {BM25\\keyword index};
+\node[store] (gr)  at (10.8,-2.1) {Entity\\graph};
+\draw[arr] (turn) -- (norm); \draw[arr] (norm) -- (imp); \draw[arr] (imp) -- (ent);
+\draw[arr] (norm) -- node[lbl,left]{embed} (vec);
+\draw[arr] (imp)  -- node[lbl,left]{tokens} (bm);
+\draw[arr] (ent)  -- node[lbl,left]{entities} (gr);
+\node[lbl,anchor=south west] at (-1.45,0.55) {Write path};
+% ---- read path, first row (left to right)
+\node[box] (q)    at (0,-4.4) {Question};
+\node[box] (fuse) at (3.6,-4.4) {Weighted RRF\\(dense $+$ sparse,\\query expansion)};
+\node[box] (gx)   at (7.2,-4.4) {Graph expansion\\(1 hop)};
+\node[box] (rr)   at (10.8,-4.4) {Cross-encoder\\re-ranking};
+% ---- read path, second row (right to left)
+\node[box] (sc)   at (10.8,-6.5) {Memory scoring $+$\\conflict-aware recency};
+\node[box] (ctx)  at (7.2,-6.5) {Top-$k$ notes\\(token budget)};
+\node[box] (llm)  at (3.6,-6.5) {LLM\\(Qwen2.5-1.5B)};
+\node[box] (gate) at (0,-6.5) {Grounding\\gate};
+\node[box] (ans)  at (0,-8.4) {Answer or\\``I don't know''};
+\draw[arr] (q) -- (fuse); \draw[arr] (fuse) -- (gx); \draw[arr] (gx) -- (rr);
+\draw[arr] (rr) -- (sc); \draw[arr] (sc) -- (ctx); \draw[arr] (ctx) -- (llm);
+\draw[arr] (llm) -- (gate); \draw[arr] (gate) -- (ans);
+\draw[arr,dashed] (vec) -- (fuse); \draw[arr,dashed] (bm) -- (fuse); \draw[arr,dashed] (gr) -- (gx);
+\node[lbl,anchor=south west] at (-1.45,-3.85) {Read path};
+\end{tikzpicture}
+\caption{Architecture of the implemented memory layer. Dashed arrows are index look-ups.}
+\label{fig:arch}
+\end{figure}
+
+\section{Data Acquisition and Benchmark Design}
+\label{sec:data}
+Public long-term memory benchmarks (LoCoMo, LongMemEval) are designed for large API models and do not give
+ground-truth \emph{memory identifiers}, which we need to measure retrieval recall. We therefore generated a
+controlled benchmark in the same spirit (\texttt{benchmarks/make\_dataset.py}). Each simulated user talks
+to an assistant over 12 sessions of 12 user--assistant pairs (288 turns, about 3.6k tokens of history).
+Into the small talk we insert:
+\begin{itemize}[nosep]
+  \item \textbf{10 single-hop personal facts} drawn from 18 attribute types (city, job, pet, allergy, doctor,
+        laptop, \dots), each stated once with one of three paraphrases.
+  \item \textbf{2 updated facts} (e.g.\ a move or a job change) stated in a later session, which create a
+        \emph{temporal-current} question (``Where does the user live now?'') and a \emph{temporal-before}
+        question (``Where did the user live before moving?'').
+  \item \textbf{2 multi-hop chains} in which a related person is introduced in one session and a fact about
+        that person appears in another (``My sister Priya visited'' $\rightarrow$ ``Priya adopted a cat named
+        Milo'' $\rightarrow$ ``What did the user's sister name her cat?'').
+  \item \textbf{8 distractor facts} about other people that reuse the attribute vocabulary (``My neighbour's
+        dog is called Luna'') to punish lexical matching.
+  \item \textbf{3 unanswerable questions} about attributes that were never mentioned; the correct answer is
+        an abstention.
+\end{itemize}
+Questions are paraphrased relative to the stored statements, so a question rarely shares its exact wording
+with its evidence. The test split contains 20 users and 330 questions (170 single-hop, 30 temporal-current,
+30 temporal-before, 40 multi-hop, 60 unanswerable). A separate 6-user development split with a different
+random seed was used for all hyper-parameter tuning. A second generator builds the NIAH-style histories of
+1k--16k tokens used in Section~\ref{sec:niah}.
+
+\section{Write Path}
+\subsection{Memory Normalisation}
+\label{sec:normalisation}
+Questions are asked about ``the user'' while memories are written in the first person. Both the embedding
+model and the cross-encoder treat ``I live in Pune'' and ``Where does the user live?'' as only weakly
+related. Each turn is therefore rewritten into the third person at write time with a small set of pronoun
+rules (``I'' $\rightarrow$ ``the user'', ``my'' $\rightarrow$ ``the user's'', assistant ``you'' $\rightarrow$
+``the user''). On a probe set this raised the cosine similarity of question--memory pairs from about 0.3 to
+0.6 and moved the cross-encoder logit of the correct memory from $-9$ (confidently irrelevant) to $+4$.
+
+\subsection{Importance Scoring and Pruning}
+Every turn receives an importance score in $[0,1]$ from cheap surface cues: user turns score higher than
+assistant turns; statements that mention the speaker, contain a capitalised entity or a number, use
+personal-fact vocabulary (\emph{live, work, named, allergic, birthday, deadline, \dots}) or are longer than
+five words gain points, and questions lose points. A configurable threshold discards low-importance turns at
+write time; Section~\ref{sec:pruning} shows that about 84\% of the turns can be discarded without any loss of
+retrieval recall.
+
+\subsection{Indexes and Entity Graph}
+Each stored memory is embedded with \texttt{all-MiniLM-L6-v2} \cite{sbert} (384 dimensions, L2-normalised)
+and inserted into a flat inner-product FAISS index \cite{faiss}; its stemmed, stop-word-filtered tokens are
+added to a BM25 index \cite{bm25}; and its entities (capitalised names and product names, dates, numbers,
+extracted with regular expressions and a sentence-initial filter) become nodes in a bipartite memory--entity
+graph implemented with NetworkX. Entities linked to more than 25 memories are treated as hubs and ignored
+during expansion.
+
+\section{Read Path}
+\subsection{Hybrid First Stage and Fusion}
+\label{sec:fusion}
+The question is embedded and the 20 nearest memories are fetched from FAISS. In parallel, the question is
+expanded with a rule-based synonym table (\emph{city} $\rightarrow$ \emph{live, based, moved, home, \dots})
+and the 20 best BM25 matches are fetched; BM25 hits scoring below 20\% of the best hit are discarded, which
+removes near-zero ``matches'' caused by frequent words. The two lists are merged by weighted reciprocal
+rank fusion \cite{rrf}
+\[
+  s_{\text{fused}}(m) = \sum_{c \in \{\text{dense},\,\text{sparse}\}} \frac{w_c}{k + \text{rank}_c(m)},
+  \qquad k = 60,\; w_{\text{dense}} = 1,\; w_{\text{sparse}} = 0.2 .
+\]
+The sparse weight was chosen on the development split: with equal weights the weak lexical channel reduced
+recall below that of dense retrieval alone.
+
+\subsection{Entity-Graph Expansion}
+The top-3 fused candidates act as seeds. Every memory that shares a non-hub entity with a seed inherits
+$0.85\times$ the seed's fused score (one-step relevance propagation); at most four such memories are added
+to the candidate pool. This is how the second hop of a chain question enters the pool: ``Dev started working
+at Zoho'' never mentions a brother, but it shares the entity \emph{Dev} with ``The user's brother Dev lives
+with the user'', which the first stage finds easily.
+
+\subsection{Cross-Encoder Re-ranking}
+Up to 40 candidates are scored jointly with the question by the MS~MARCO MiniLM-L6 cross-encoder
+\cite{nogueira2019}. Because the cross-encoder was found to be unreliable on its own for these short
+conversational notes, its sigmoid output is blended with the normalised fused score,
+$\text{rel}(m) = 0.5\,\sigma(\text{CE}(m)) + 0.5\, s_{\text{fused}}(m)/\max s_{\text{fused}}$.
+
+\subsection{Memory Scoring}
+\label{sec:scoring}
+Following the memory-stream idea \cite{park2023}, each candidate is scored with relevance, recency,
+importance, access frequency and a graph-coherence bonus (number of other candidates it shares an entity
+with). Unlike the additive formulation, relevance acts as a gate:
+\[
+  \text{score}(m) = \text{rel}(m)\,\bigl(1 + w_{\text{rec}}\,2^{-\Delta s/h} + w_{\text{imp}}\,\text{imp}(m)
+  + w_{\text{acc}}\,\text{acc}(m) + w_{\text{graph}}\,\text{coh}(m)\bigr),
+\]
+with $\Delta s$ the age in sessions and half-life $h = 6$. On the development split a non-zero recency
+weight lowered recall for multi-hop and ``before'' questions, so recency is applied through the conflict
+rule below instead ($w_{\text{rec}} = 0$, $w_{\text{imp}} = 0.10$, $w_{\text{acc}} = 0.02$,
+$w_{\text{graph}} = 0.10$). Finally, a memory that is itself a question or request to the assistant
+(``What is a good way to learn guitar chords?'') is multiplied by $0.7$: such turns are rarely evidence for
+a fact about the user, yet they match question words such as \emph{learning} very well. This single rule
+raised single-hop Recall@5 from 92\% to 99\% on the test split without affecting the other question types.
+
+\subsection{Conflict-Aware Recency (Memory Updates)}
+Two candidates are treated as versions of the same fact when both are user statements about the user (no
+third-party nouns such as \emph{colleague} or \emph{neighbour}), their cosine similarity is at least 0.45 and
+the newer one contains an update cue (\emph{moved, switched, upgraded, replaced, now, new, \dots}). The older
+version keeps 80\% of its score and is tagged ``(older note)'' when injected, so the LLM can still answer
+``before'' questions while being steered to the current fact.
+
+\subsection{Context Injection and Grounding Gate}
+The top-5 memories are rendered chronologically with their session label inside a 512-token budget, and the
+LLM is instructed to answer only from the notes, to prefer the most recent note when notes conflict, to
+ignore notes about other people, and to reply ``I don't know'' otherwise. After generation the
+\emph{grounding gate} verifies the answer: the note whose content covers the answer's content words is
+located, and the answer is accepted only if that note's relevance score is at least 0.35. An answer copied
+from an irrelevant note (the neighbour's dog) or not found in any note is replaced by an abstention. This
+gate is the Phase-2 counterpart of the hallucination detectors evaluated in Phase 1.
+
+\section{Baselines and Evaluation Protocol}
+All strategies use the same model, Qwen2.5-1.5B-Instruct \cite{qwen25} in fp16 on a 4~GB laptop GPU, with
+greedy decoding, the same system prompt and the same answer-format instructions:
+\begin{itemize}[nosep]
+  \item \textbf{Baseline LLM}: question only, no memory.
+  \item \textbf{Full context}: the complete transcript of all sessions in the prompt (the context-window
+        expansion approach; prompts up to 16k tokens use chunked prefill so that they fit in GPU memory).
+  \item \textbf{Sliding window}: the last 40 turns.
+  \item \textbf{Vector RAG}: the Phase-1 design, embedding similarity top-5 only.
+  \item \textbf{Memory layer}: the full pipeline above, reported with and without the grounding gate.
+\end{itemize}
+An answer is correct when the normalised gold string is contained in it or token-F1 $\ge 0.6$; an
+unanswerable question is correct only when the model abstains. A \emph{hallucination} is a non-abstaining
+answer that is wrong, or any non-abstaining answer to an unanswerable question. For retrieval methods we also
+report Recall@$k$ (all gold memories within the top-$k$) and MRR. Latency and prompt tokens are measured per
+question. The implementation is about 2,400 lines of Python: the package \texttt{memory\_layer} (eleven modules),
+the \texttt{benchmarks} directory (dataset generator, three experiment runners, tuning and plotting) and a
+functional test suite; all experiments are reproducible from the committed scripts.

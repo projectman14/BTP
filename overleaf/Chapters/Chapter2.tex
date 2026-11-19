@@ -1,0 +1,245 @@
+
+\section{Literature Survey}
+This survey covers every work the project builds on: the foundations on Transformers, RAG, hallucination
+and long-context evaluation that motivated the memory layer, and the retrieval, memory, grounding and
+benchmark literature that each stage of the implemented layer draws on. Entries are grouped by theme and
+each ends with the limitation that motivated a design decision in Chapter~3.
+
+\subsection{Transformer Architecture: Attention Is All You Need (Vaswani et al.\ 2017)}
+Vaswani et al.\ \cite{vaswani2017} introduced the Transformer, which replaces recurrence with
+self-attention so that every token can attend to every other token in parallel. It is the architecture
+of every LLM used in this project, and the reason the context window exists at all: attention is computed
+over a fixed-length window of tokens. \\
+\textbf{Limitation:} attention costs quadratic time and memory in the sequence length, so simply making
+the window longer is expensive, and nothing outside the window is visible to the model.
+
+\subsection{Retrieval-Augmented Generation for Knowledge-Intensive NLP (Lewis et al.\ 2020)}
+Lewis et al.\ \cite{lewis2020} combined a dense retriever with a sequence-to-sequence generator so that
+the model conditions on retrieved passages instead of relying only on parametric knowledge, improving
+factual accuracy on open-domain QA. RAG is the starting point of our Phase-1 design (vector RAG baseline). \\
+\textbf{Limitation:} RAG is stateless across interactions and has no notion of the user, of time, or of
+which retrieved passage supersedes another.
+
+\subsection{Retrieval-Augmented Generation for LLMs: A Survey (Gao et al.\ 2023)}
+Gao et al.\ \cite{gao2023} survey naive, advanced and modular RAG, covering chunking, embedding, hybrid
+retrieval, re-ranking and query rewriting, and report consistent reductions in hallucination from
+grounding. Several of the ``advanced RAG'' components they list (hybrid search, re-ranking, query
+expansion) are implemented in our read path. \\
+\textbf{Limitation:} the surveyed systems index static documents; conversational memory with updates and
+personal facts is not addressed.
+
+\subsection{A Survey on Hallucination in Large Language Models (Huang et al.\ 2024)}
+Huang et al.\ \cite{huang2024} classify hallucinations into factuality and faithfulness errors, trace their
+causes to data, training and inference, and review detection and mitigation methods including retrieval
+augmentation. \\
+\textbf{Limitation:} the survey shows that retrieval reduces but does not remove hallucination, and that
+detection methods trade precision for recall, which is exactly what Phase 1 measured on RAGTruth.
+
+\subsection{Lost in the Middle: How Language Models Use Long Contexts (Liu et al.\ 2023)}
+Liu et al.\ \cite{liu2023} showed that when the relevant document is placed in the middle of a long
+prompt, accuracy drops sharply compared with placing it at the beginning or end, producing a U-shaped
+curve across positions. \\
+\textbf{Limitation:} models do not use their context uniformly, so a memory that is ``in the window'' is
+not necessarily used; this motivates injecting a few notes rather than the whole history.
+
+\subsection{NoLiMa: Long-Context Evaluation Beyond Literal Matching (Modarressi et al.\ 2025)}
+NoLiMa \cite{nolima2025} removes lexical overlap between the question and the needle so that the model
+must reason associatively, and finds that accuracy at 32k tokens falls far below the short-context
+accuracy of the same models. \\
+\textbf{Limitation:} long-context performance claims based on literal needle matching are optimistic; our
+benchmark therefore paraphrases every question relative to its stored evidence.
+
+\subsection{Why Does the Effective Context Length of LLMs Fall Short? (An et al.\ 2025)}
+An et al.\ \cite{an2025} attribute the gap between the trained and the usable context length to the
+left-skewed distribution of relative positions seen in training, and propose position remapping (STRING)
+to recover performance without retraining. \\
+\textbf{Limitation:} even with the fix, the effective context is a fraction of the nominal window, so
+history that exceeds it must be selected rather than appended.
+
+\subsection{Needle-in-a-Haystack Evaluation for Long-Context LLMs (Kamradt 2023; Nelson 2025)}
+The needle-in-a-haystack protocol \cite{niah2025} inserts one fact at a chosen depth in a long filler
+document and measures whether the model can retrieve it; results are reported as depth-by-length heatmaps
+that show degradation with length and position. Phase 1 reported such heatmaps from the literature; Phase
+2 reproduces the protocol on our own model (Section~\ref{sec:niah}). \\
+\textbf{Limitation:} a single needle in unrelated filler is easier than a real history that contains many
+similar facts, updates and distractors; the protocol measures length, not interference.
+
+\subsection{Dense Retrieval and Retrieval-Augmented Pre-training}
+\textbf{DPR (Karpukhin et al.\ 2020)} \cite{dpr} trains a bi-encoder so that questions and passages are
+compared by a single inner product, and showed that learned dense retrieval beats BM25 on open-domain QA
+when the question and passage share little vocabulary. This is the justification for the dense channel of
+our first stage. \\
+\textbf{Limitation:} bi-encoders miss exact matches of rare strings (names, model numbers), which is why a
+lexical channel is still needed.
+
+\textbf{REALM (Guu et al.\ 2020)} \cite{realm} and \textbf{RETRO (Borgeaud et al.\ 2022)} \cite{retro}
+integrate retrieval into pre-training itself: REALM back-propagates through a latent retriever, and RETRO
+conditions a 7B model on chunks retrieved from a two-trillion-token database, matching models 25 times
+larger. They demonstrate that retrieving a few relevant chunks is worth more than scaling parameters. \\
+\textbf{Limitation:} both require retraining the language model; a memory layer must work with a frozen,
+off-the-shelf model.
+
+\textbf{Fusion-in-Decoder (Izacard and Grave 2021)} \cite{fid} encodes each retrieved passage
+independently and lets the decoder attend over all of them, and found that accuracy keeps improving up to
+about 100 passages while a single long concatenation does not. \\
+\textbf{Limitation:} needs an encoder--decoder model; with a decoder-only LLM the practical substitute is
+to inject a small number of high-precision notes, which is what the token budget in our layer enforces.
+
+\subsection{Lexical Retrieval, Late Interaction and Fusion}
+\textbf{BM25 (Robertson and Zaragoza 2009)} \cite{bm25} remains the standard lexical ranking function and is
+the sparse channel of our retriever. \textbf{ColBERT (Khattab and Zaharia 2020)} \cite{colbert} keeps one
+vector per token and scores by late interaction (MaxSim), getting close to cross-encoder quality at
+bi-encoder cost. \textbf{Reciprocal Rank Fusion (Cormack et al.\ 2009)} \cite{rrf} merges ranked lists from
+several retrievers using only ranks, which makes it robust to incomparable score scales. \\
+\textbf{Limitation:} RRF with equal weights lets a weak channel inject noise, and BM25 returns near-zero
+``matches'' on shared frequent words; we use a weighted RRF and a score floor on the BM25 channel
+(Section~\ref{sec:fusion}). ColBERT indexes are an order of magnitude larger than single-vector indexes,
+so we kept the simpler bi-encoder.
+
+\textbf{HyDE (Gao et al.\ 2023)} \cite{hyde} performs zero-shot retrieval by asking an LLM to write a
+hypothetical answer document and embedding that instead of the query, closing the vocabulary gap between
+questions and passages. \\
+\textbf{Limitation:} one LLM call per query; our rule-based query expansion is a zero-cost approximation
+of the same idea for the lexical channel.
+
+\textbf{Sentence-BERT (Reimers and Gurevych 2019)} \cite{sbert} produces dense sentence embeddings suited to
+semantic similarity search, and \textbf{FAISS (Johnson et al.\ 2021)} \cite{faiss} provides fast exact and
+approximate nearest-neighbour search over them; both are used directly in the layer.
+
+\subsection{Cross-Encoder Re-ranking}
+\textbf{Nogueira and Cho (2019)} \cite{nogueira2019} showed that a BERT cross-encoder that reads the query
+and the passage jointly re-ranks first-stage candidates far more accurately than bi-encoders. We use the
+MS~MARCO MiniLM cross-encoder as the re-ranking stage. \\
+\textbf{Limitation:} cross-encoders are trained on web passages; on short, first-person conversational
+memories they are unreliable unless the memory text is normalised (Section~\ref{sec:normalisation}), and
+even then they are blended with first-stage evidence rather than trusted alone.
+
+\subsection{Memory-Augmented Transformers}
+\textbf{Memorizing Transformers (Wu et al.\ 2022)} \cite{memtrans} add a $k$NN look-up over the keys and
+values of past tokens to one attention layer, extending the usable context to hundreds of thousands of
+tokens without retraining from scratch. \textbf{LongMem (Wang et al.\ 2023)} \cite{longmem} decouples the
+memory into a frozen backbone that writes key--value pairs and a trainable side-network that reads them. \\
+\textbf{Limitation:} both store opaque activations tied to one model; the memory cannot be inspected,
+edited, or moved to another model. Our layer stores natural-language notes, which are model-independent
+and auditable.
+
+\subsection{Memory for LLM Agents}
+\textbf{Generative Agents (Park et al.\ 2023)} \cite{park2023} gave simulated agents a \emph{memory stream}
+of natural-language observations and retrieved memories with a weighted sum of \emph{recency}
+(exponential decay), \emph{importance} (rated once at write time) and \emph{relevance} (embedding
+similarity). This triple is the basis of our memory scoring stage. \\
+\textbf{Limitation:} the three scores are added, so a recent but irrelevant memory can outrank a relevant
+old one; we found exactly this failure mode in our first implementation and changed to a relevance-gated,
+multiplicative combination (Section~\ref{sec:scoring}).
+
+\textbf{Reflexion (Shinn et al.\ 2023)} \cite{reflexion} stores verbal self-reflections in an episodic
+memory buffer so that an agent improves across trials. \textbf{MemGPT (Packer et al.\ 2023)}
+\cite{packer2023} treats the context window as main memory and an external store as disk, letting the LLM
+page information in and out through function calls. \textbf{MemoryBank (Zhong et al.\ 2024)}
+\cite{zhong2024} adds an Ebbinghaus-style forgetting curve so that memories that are not revisited fade. \\
+\textbf{Limitation:} all three rely on the LLM itself to decide what to store and recall, which is
+expensive and hard to evaluate; our layer keeps storage and retrieval deterministic and model-independent.
+
+\textbf{Mem0 (Chhikara et al.\ 2025)} \cite{mem0} extracts salient facts from each turn, stores them in a
+vector database and resolves each new fact against existing ones with \emph{add / update / delete / no-op}
+operations; a graph variant stores entities and relations. It reports large token savings over
+full-context prompting on LoCoMo. \\
+\textbf{Limitation:} fact extraction and conflict resolution are performed by an LLM call per turn. We
+approximate the update operation with an embedding-similarity plus update-cue rule that costs nothing at
+write time.
+
+\textbf{Survey of memory mechanisms (Zhang et al.\ 2024)} \cite{memsurvey} organises agent memory along
+the axes of \emph{what} is stored (raw text, summaries, structured facts), \emph{how} it is managed
+(write, update, forget) and \emph{how} it is read (relevance, recency, importance). Our design covers all
+three axes with explicit, switchable components so that each can be ablated.
+
+\subsection{Graph-Based Retrieval}
+\textbf{GraphRAG (Edge et al.\ 2024)} \cite{graphrag} extracts an entity--relation graph from a corpus and
+answers questions by combining vector search with graph traversal, which helps questions whose evidence is
+spread over several documents. Our entity graph is a light-weight version: memories are linked through
+shared named entities and retrieval expands one hop from the top candidates. \\
+\textbf{Limitation:} GraphRAG builds the graph with many LLM calls; our rule-based extraction is free but
+only captures explicit surface entities.
+
+\subsection{Long Context: Distraction, Retrieval versus Length, RULER}
+\textbf{Shi et al.\ (2023)} \cite{distracted} showed that adding a single irrelevant but topically similar
+sentence to a reasoning problem sharply lowers LLM accuracy, i.e.\ models are easily distracted by
+irrelevant context. \textbf{Xu et al.\ (2024)} \cite{retrievalmeetslong} compared a 4k-context model with
+retrieval against 16k/32k long-context models and found that retrieval of a few chunks matches or beats
+the long-context model at a fraction of the cost. \textbf{RULER (Hsieh et al.\ 2024)} \cite{ruler}
+generalises the needle test to multi-needle, multi-hop tracing and aggregation tasks and found that most
+models' effective context is far below their claimed window. \\
+\textbf{Limitation:} these studies measure the model; they do not say how to \emph{select} the few chunks
+in a multi-session conversation. Our distractor facts and NIAH-style scaling experiment transfer their
+methodology to the memory setting.
+
+\subsection{Hallucination Corpora and Grounding Verification}
+\textbf{RAGTruth (Niu et al.\ 2024)} \cite{ragtruth} is the word-level hallucination corpus for RAG outputs
+that Phase 1 used; its baseline detectors (prompted GPT-3.5/4, SelfCheckGPT, LMvLM) reach high recall but
+low precision. \textbf{SelfCheckGPT (Manakul et al.\ 2023)} \cite{selfcheck} detects hallucination by
+sampling several answers and measuring their mutual inconsistency, and \textbf{FActScore (Min et al.\ 2023)}
+\cite{factscore} breaks a generation into atomic facts and checks each against a knowledge source.
+\textbf{Self-RAG (Asai et al.\ 2024)} \cite{selfrag} trains the model to emit reflection tokens that decide
+whether to retrieve and whether the output is supported by the retrieved passage. \\
+\textbf{Limitation:} SelfCheckGPT needs several extra generations and Self-RAG needs fine-tuning;
+FActScore needs an external knowledge base. Our grounding gate borrows the atomic-fact attribution idea of
+FActScore and the ``is it supported'' judgement of Self-RAG, but implements both as deterministic checks
+against the injected notes (attributable, factual, same subject), which cost no extra model calls.
+
+\subsection{Long-Term Conversational Memory Benchmarks}
+\textbf{LoCoMo (Maharana et al.\ 2024)} \cite{locomo} and \textbf{LongMemEval (Wu et al.\ 2025)}
+\cite{longmemeval} evaluate assistants on multi-session conversations with single-hop, multi-hop,
+temporal-reasoning and abstention questions, and report that full-context prompting is both expensive and
+surprisingly inaccurate, while retrieval over the history recovers most of the accuracy at a fraction of
+the cost. \textbf{LongBench (Bai et al.\ 2024)} \cite{longbench} is the corresponding bilingual
+multi-task suite for long documents. Our synthetic benchmark follows the LoCoMo/LongMemEval question
+taxonomy. \\
+\textbf{Limitation:} the published benchmarks need large API models to run and do not expose gold memory
+identifiers; we built a smaller, fully controlled benchmark that a 1.5B-parameter local model can be
+evaluated on reproducibly and that reports retrieval recall as well as answer accuracy.
+
+\subsection{Small Instruction-Tuned Models (Qwen2.5)}
+The Qwen2.5 family \cite{qwen25} provides instruction-tuned models from 0.5B to 72B parameters with 32k-token
+context windows. We use the 1.5B model as the answering LLM for every method so that differences in the
+results come from the memory strategy and not from the model.
+
+\subsection{Summary}
+Table~\ref{tab:litmap} maps each stage of the implemented memory layer to the work it draws on.
+\begin{table}[htbp]\centering\small
+\begin{tabular}{p{4.2cm}p{9.3cm}}\hline
+\textbf{Stage of the memory layer} & \textbf{Source works} \\\hline
+Dense channel (embeddings, FAISS) & DPR \cite{dpr}, Sentence-BERT \cite{sbert}, FAISS \cite{faiss} \\
+Sparse channel, query expansion & BM25 \cite{bm25}, HyDE \cite{hyde} \\
+Weighted rank fusion & RRF \cite{rrf} \\
+Entity graph expansion & GraphRAG \cite{graphrag}, Mem0 graph memory \cite{mem0} \\
+Cross-encoder re-ranking & Nogueira and Cho \cite{nogueira2019}, ColBERT \cite{colbert} \\
+Memory scoring (recency, importance, relevance) & Generative Agents \cite{park2023}, MemoryBank \cite{zhong2024}, memory survey \cite{memsurvey} \\
+Conflict-aware updates & Mem0 update operation \cite{mem0} \\
+Token-budgeted injection & FiD \cite{fid}, retrieval vs.\ long context \cite{retrievalmeetslong}, distraction \cite{distracted} \\
+Grounding gate & FActScore \cite{factscore}, Self-RAG \cite{selfrag}, RAGTruth \cite{ragtruth}, SelfCheckGPT \cite{selfcheck} \\
+Benchmark design & LoCoMo \cite{locomo}, LongMemEval \cite{longmemeval}, RULER \cite{ruler}, NIAH \cite{niah2025} \\\hline
+\end{tabular}
+\caption{Mapping of the memory-layer stages to the literature.}\label{tab:litmap}
+\end{table}
+
+\section{Problem Statement and Objectives}
+\noindent\textbf{Problem Statement 1:} A memory layer was proposed in Phase 1 but never built; without an
+implementation its claimed benefits cannot be verified.\\
+\textbf{Objective 1:} Implement the full pipeline as a reusable package with switchable stages.
+
+\noindent\textbf{Problem Statement 2:} Plain vector retrieval cannot tell current facts from outdated ones and misses
+facts connected only through entities.\\
+\textbf{Objective 2:} Add conflict-aware recency and an entity graph, and measure their effect on temporal
+and multi-hop questions.
+
+\noindent\textbf{Problem Statement 3:} Hallucination detection in Phase 1 had precision of only 0.25.\\
+\textbf{Objective 3:} Design a grounding gate that flags unsupported answers with high precision.
+
+\noindent\textbf{Problem Statement 4:} Full-context prompting is the de-facto baseline but its cost and accuracy at
+different history lengths were only taken from the literature in Phase 1.\\
+\textbf{Objective 4:} Measure accuracy, tokens and latency of full-context versus memory-layer answering
+on histories from 1k to 16k tokens with the same model.
+
+\noindent\textbf{Problem Statement 5:} It is unknown which stages of a multi-stage memory pipeline actually matter.\\
+\textbf{Objective 5:} Run a stage-by-stage ablation and a pruning study, and tune hyper-parameters on a
+separate development split.

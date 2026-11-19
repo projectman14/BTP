@@ -1,0 +1,126 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+W1119 11:51:44.851000 20868 site-packages\torch\distributed\elastic\multiprocessing\redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights:   7%|6         | 23/338 [00:00<00:02, 106.11it/s]Loading weights:  10%|#         | 35/338 [00:00<00:02, 106.75it/s]Loading weights:  14%|#3        | 46/338 [00:00<00:04, 68.58it/s] Loading weights:  16%|#5        | 54/338 [00:00<00:04, 59.23it/s]Loading weights:  18%|#8        | 61/338 [00:00<00:05, 50.06it/s]Loading weights:  20%|#9        | 67/338 [00:01<00:05, 48.10it/s]Loading weights:  21%|##1       | 72/338 [00:01<00:06, 43.30it/s]Loading weights:  24%|##3       | 81/338 [00:01<00:05, 50.47it/s]Loading weights:  26%|##5       | 87/338 [00:01<00:05, 45.86it/s]Loading weights:  28%|##7       | 94/338 [00:01<00:04, 49.66it/s]Loading weights:  30%|##9       | 100/338 [00:01<00:06, 35.18it/s]Loading weights:  32%|###1      | 107/338 [00:02<00:08, 27.51it/s]Loading weights:  35%|###4      | 118/338 [00:02<00:06, 36.34it/s]Loading weights:  36%|###6      | 123/338 [00:02<00:07, 28.80it/s]Loading weights:  38%|###7      | 127/338 [00:03<00:10, 20.58it/s]Loading weights:  42%|####2     | 142/338 [00:03<00:07, 25.00it/s]Loading weights:  44%|####4     | 149/338 [00:04<00:07, 25.25it/s]Loading weights:  46%|####5     | 155/338 [00:04<00:06, 28.87it/s]Loading weights:  49%|####9     | 167/338 [00:04<00:04, 36.43it/s]Loading weights:  51%|#####     | 172/338 [00:04<00:04, 36.36it/s]Loading weights:  52%|#####2    | 177/338 [00:04<00:05, 29.73it/s]Loading weights:  57%|#####6    | 191/338 [00:05<00:04, 34.65it/s]Loading weights:  60%|######    | 203/338 [00:05<00:03, 35.97it/s]Loading weights:  63%|######3   | 213/338 [00:05<00:03, 37.87it/s]Loading weights:  64%|######4   | 217/338 [00:05<00:03, 37.84it/s]Loading weights:  67%|######7   | 227/338 [00:06<00:03, 35.31it/s]Loading weights:  70%|#######   | 238/338 [00:06<00:02, 40.32it/s]Loading weights:  72%|#######1  | 243/338 [00:06<00:02, 40.40it/s]Loading weights:  74%|#######3  | 250/338 [00:06<00:01, 45.07it/s]Loading weights:  75%|#######5  | 255/338 [00:06<00:02, 38.25it/s]Loading weights:  78%|#######7  | 262/338 [00:06<00:02, 37.38it/s]Loading weights:  79%|#######8  | 266/338 [00:06<00:01, 37.60it/s]Loading weights:  81%|########1 | 274/338 [00:07<00:01, 44.88it/s]Loading weights:  83%|########2 | 279/338 [00:07<00:01, 36.73it/s]Loading weights:  84%|########4 | 285/338 [00:07<00:01, 28.99it/s]Loading weights:  88%|########8 | 298/338 [00:07<00:00, 40.41it/s]Loading weights:  90%|########9 | 303/338 [00:07<00:00, 41.84it/s]Loading weights:  92%|#########2| 311/338 [00:08<00:00, 41.94it/s]Loading weights:  93%|#########3| 316/338 [00:08<00:00, 40.40it/s]Loading weights:  96%|#########5| 323/338 [00:08<00:00, 35.61it/s]Loading weights: 100%|##########| 338/338 [00:08<00:00, 39.51it/s]
+C:\Users\laksh\AppData\Local\Programs\Python\Python311\Lib\site-packages\torch\nn\modules\module.py:1355: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:35.)
+  return t.to(
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 1661.26it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\laksh\Documents\BTP\memory_layer\embeddings.py:10: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dim = self.model.get_sentence_embedding_dimension()
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|##########| 105/105 [00:00<00:00, 1149.98it/s]
+LLM on cuda; 20 users; methods=['no_memory', 'full_context', 'sliding_window', 'rag_vector', 'memory_layer']
+user 1/20 done; records=119; elapsed=160s
+user 2/20 done; records=238; elapsed=242s
+user 3/20 done; records=350; elapsed=295s
+user 4/20 done; records=462; elapsed=346s
+user 5/20 done; records=574; elapsed=496s
+user 6/20 done; records=693; elapsed=634s
+user 7/20 done; records=805; elapsed=711s
+user 8/20 done; records=917; elapsed=781s
+user 9/20 done; records=1029; elapsed=856s
+user 10/20 done; records=1148; elapsed=937s
+user 11/20 done; records=1267; elapsed=1029s
+user 12/20 done; records=1379; elapsed=1101s
+user 13/20 done; records=1498; elapsed=1200s
+user 14/20 done; records=1617; elapsed=1301s
+user 15/20 done; records=1736; elapsed=1394s
+user 16/20 done; records=1848; elapsed=1487s
+user 17/20 done; records=1967; elapsed=1584s
+user 18/20 done; records=2086; elapsed=1683s
+user 19/20 done; records=2205; elapsed=1780s
+user 20/20 done; records=2310; elapsed=1867s
+{
+ "no_memory": {
+  "accuracy": 0.182,
+  "accuracy_answerable": 0.0,
+  "abstain_rate_unanswerable": 1.0,
+  "hallucination_rate": 0.0,
+  "hallucination_rate_answerable": 0.0,
+  "avg_prompt_tokens": 117.3,
+  "avg_latency_s": 0.241
+ },
+ "full_context": {
+  "accuracy": 0.573,
+  "accuracy_answerable": 0.611,
+  "abstain_rate_unanswerable": 0.4,
+  "hallucination_rate": 0.361,
+  "hallucination_rate_answerable": 0.307,
+  "avg_prompt_tokens": 4209.239,
+  "avg_latency_s": 3.486
+ },
+ "sliding_window": {
+  "accuracy": 0.264,
+  "accuracy_answerable": 0.111,
+  "abstain_rate_unanswerable": 0.95,
+  "hallucination_rate": 0.112,
+  "hallucination_rate_answerable": 0.126,
+  "avg_prompt_tokens": 664.188,
+  "avg_latency_s": 0.835
+ },
+ "rag_vector": {
+  "accuracy": 0.736,
+  "accuracy_answerable": 0.733,
+  "abstain_rate_unanswerable": 0.75,
+  "hallucination_rate": 0.179,
+  "hallucination_rate_answerable": 0.163,
+  "avg_prompt_tokens": 265.63,
+  "avg_latency_s": 0.329,
+  "recall_at_k": 0.904,
+  "mrr": 0.828
+ },
+ "memory_layer": {
+  "accuracy": 0.782,
+  "accuracy_answerable": 0.8,
+  "abstain_rate_unanswerable": 0.7,
+  "hallucination_rate": 0.155,
+  "hallucination_rate_answerable": 0.122,
+  "avg_prompt_tokens": 267.218,
+  "avg_latency_s": 0.622,
+  "recall_at_k": 0.963,
+  "mrr": 0.824
+ },
+ "memory_layer_gated": {
+  "accuracy": 0.806,
+  "accuracy_answerable": 0.793,
+  "abstain_rate_unanswerable": 0.867,
+  "hallucination_rate": 0.07,
+  "hallucination_rate_answerable": 0.056,
+  "avg_prompt_tokens": 267.218,
+  "avg_latency_s": 0.622,
+  "recall_at_k": 0.963,
+  "mrr": 0.824
+ },
+ "rag_vector_gated": {
+  "accuracy": 0.748,
+  "accuracy_answerable": 0.722,
+  "abstain_rate_unanswerable": 0.867,
+  "hallucination_rate": 0.103,
+  "hallucination_rate_answerable": 0.096,
+  "avg_prompt_tokens": 265.63,
+  "avg_latency_s": 0.329,
+  "recall_at_k": 0.904,
+  "mrr": 0.828
+ }
+}
+detection: {
+ "rag_vector": {
+  "precision": 0.8928571428571429,
+  "recall": 0.423728813559322,
+  "f1": 0.5747126436781609,
+  "tp": 25,
+  "fp": 3,
+  "fn": 34,
+  "positives": 59,
+  "n": 330
+ },
+ "memory_layer": {
+  "precision": 0.9333333333333333,
+  "recall": 0.5490196078431373,
+  "f1": 0.6913580246913581,
+  "tp": 28,
+  "fp": 2,
+  "fn": 23,
+  "positives": 51,
+  "n": 330
+ }
+}

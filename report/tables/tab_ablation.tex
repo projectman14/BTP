@@ -1,0 +1,12 @@
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lccccc}\hline
+\textbf{Configuration} & \textbf{R@1} & \textbf{R@3} & \textbf{R@5} & \textbf{MRR} & \textbf{Temporal ok}\\\hline
+Vector only & 58.9\% & 86.3\% & 90.4\% & 0.829 & 70.0\%\\
+BM25 only & 24.1\% & 41.1\% & 43.7\% & 0.439 & 26.7\%\\
++ RRF hybrid & 48.9\% & 79.6\% & 87.4\% & 0.756 & 65.0\%\\
++ query exp. & 54.8\% & 80.0\% & 89.6\% & 0.794 & 61.7\%\\
++ re-ranking & 54.1\% & 84.1\% & 88.9\% & 0.801 & 60.0\%\\
++ entity graph & 54.1\% & 84.8\% & 90.7\% & 0.801 & 60.0\%\\
++ scoring (full) & 56.7\% & 88.9\% & 96.3\% & 0.827 & 80.0\%\\
+\hline\end{tabular}
+\caption{Retrieval ablation: each row adds one stage to the previous one. R@k = all gold memories within the top-k; Temporal ok = the current fact outranks the outdated one.}\label{tab:ablation}\end{table}

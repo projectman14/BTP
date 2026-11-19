@@ -1,0 +1,5378 @@
+{
+ "meta": {
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "device": "cuda",
+  "lengths": [
+   1000,
+   2000,
+   4000,
+   8000,
+   16000
+  ],
+  "depths": [
+   0.0,
+   0.25,
+   0.5,
+   0.75,
+   1.0
+  ],
+  "needles": 8,
+  "tok_per_pair": 28.616666666666667,
+  "elapsed_s": 3935.149852991104
+ },
+ "summary": {
+  "1000": {
+   "full": {
+    "accuracy": 0.825,
+    "hallucination_rate": 0.075,
+    "avg_prompt_tokens": 1080.125,
+    "avg_latency_s": 1.1112400531768798
+   },
+   "memory": {
+    "accuracy": 0.9,
+    "hallucination_rate": 0.0,
+    "avg_prompt_tokens": 270.025,
+    "avg_latency_s": 0.6461999952793122,
+    "needle_recall": 0.975
+   }
+  },
+  "2000": {
+   "full": {
+    "accuracy": 0.825,
+    "hallucination_rate": 0.1,
+    "avg_prompt_tokens": 2096.25,
+    "avg_latency_s": 1.8456515729427339
+   },
+   "memory": {
+    "accuracy": 0.925,
+    "hallucination_rate": 0.025,
+    "avg_prompt_tokens": 265.05,
+    "avg_latency_s": 0.6629525482654571,
+    "needle_recall": 1.0
+   }
+  },
+  "4000": {
+   "full": {
+    "accuracy": 0.85,
+    "hallucination_rate": 0.1,
+    "avg_prompt_tokens": 4183.55,
+    "avg_latency_s": 3.034884387254715
+   },
+   "memory": {
+    "accuracy": 0.8,
+    "hallucination_rate": 0.025,
+    "avg_prompt_tokens": 264.125,
+    "avg_latency_s": 0.6823027431964874,
+    "needle_recall": 0.925
+   }
+  },
+  "8000": {
+   "full": {
+    "accuracy": 0.75,
+    "hallucination_rate": 0.125,
+    "avg_prompt_tokens": 8335.4,
+    "avg_latency_s": 6.227496415376663
+   },
+   "memory": {
+    "accuracy": 0.825,
+    "hallucination_rate": 0.025,
+    "avg_prompt_tokens": 263.05,
+    "avg_latency_s": 0.6667059123516083,
+    "needle_recall": 0.95
+   }
+  },
+  "16000": {
+   "full": {
+    "accuracy": 0.75,
+    "hallucination_rate": 0.175,
+    "avg_prompt_tokens": 16634.075,
+    "avg_latency_s": 81.64075749516488
+   },
+   "memory": {
+    "accuracy": 0.725,
+    "hallucination_rate": 0.1,
+    "avg_prompt_tokens": 266.825,
+    "avg_latency_s": 0.7003341257572174,
+    "needle_recall": 0.925
+   }
+  }
+ },
+ "heatmap": {
+  "full": {
+   "1000": {
+    "0.0": 0.875,
+    "0.25": 0.875,
+    "0.5": 0.625,
+    "0.75": 1.0,
+    "1.0": 0.75
+   },
+   "2000": {
+    "0.0": 1.0,
+    "0.25": 0.5,
+    "0.5": 0.75,
+    "0.75": 0.875,
+    "1.0": 1.0
+   },
+   "4000": {
+    "0.0": 1.0,
+    "0.25": 0.75,
+    "0.5": 0.875,
+    "0.75": 0.625,
+    "1.0": 1.0
+   },
+   "8000": {
+    "0.0": 0.875,
+    "0.25": 0.625,
+    "0.5": 0.75,
+    "0.75": 0.5,
+    "1.0": 1.0
+   },
+   "16000": {
+    "0.0": 0.875,
+    "0.25": 0.75,
+    "0.5": 0.75,
+    "0.75": 0.5,
+    "1.0": 0.875
+   }
+  },
+  "memory": {
+   "1000": {
+    "0.0": 0.875,
+    "0.25": 1.0,
+    "0.5": 0.875,
+    "0.75": 0.875,
+    "1.0": 0.875
+   },
+   "2000": {
+    "0.0": 0.875,
+    "0.25": 1.0,
+    "0.5": 1.0,
+    "0.75": 0.875,
+    "1.0": 0.875
+   },
+   "4000": {
+    "0.0": 0.875,
+    "0.25": 0.875,
+    "0.5": 0.875,
+    "0.75": 0.75,
+    "1.0": 0.625
+   },
+   "8000": {
+    "0.0": 0.75,
+    "0.25": 1.0,
+    "0.5": 0.75,
+    "0.75": 0.75,
+    "1.0": 0.875
+   },
+   "16000": {
+    "0.0": 0.875,
+    "0.25": 0.875,
+    "0.5": 0.5,
+    "0.75": 0.625,
+    "1.0": 0.75
+   }
+  }
+ },
+ "cells": [
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 0,
+   "attr": "language",
+   "answer": "Portuguese",
+   "question": "Which new language is the user picking up?",
+   "full": {
+    "answer": "Portuguese",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1103,
+    "latency": 2.545779228210449
+   },
+   "memory": {
+    "answer": "Portuguese.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 265,
+    "latency": 0.669755220413208,
+    "retrieval_latency": 0.06006288528442383,
+    "ingest_latency": 0.22855615615844727,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 1,
+   "attr": "doctor",
+   "answer": "Bose",
+   "question": "What is the name of the user's doctor?",
+   "full": {
+    "answer": "Dr. Bose",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1105,
+    "latency": 0.9547843933105469
+   },
+   "memory": {
+    "answer": "Dr. Bose.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 272,
+    "latency": 0.5599262714385986,
+    "retrieval_latency": 0.041411399841308594,
+    "ingest_latency": 0.08301997184753418,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 2,
+   "attr": "job",
+   "answer": "content writer",
+   "question": "What does the user do for a living?",
+   "full": {
+    "answer": "I work as a content writer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1102,
+    "latency": 1.4705204963684082
+   },
+   "memory": {
+    "answer": "The user works as a content writer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 298,
+    "latency": 1.1839599609375,
+    "retrieval_latency": 0.04800057411193848,
+    "ingest_latency": 0.08219504356384277,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 3,
+   "attr": "laptop",
+   "answer": "Acer Swift Go",
+   "question": "Which laptop did the user buy?",
+   "full": {
+    "answer": "Acer Swift Go laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1071,
+    "latency": 1.1895673274993896
+   },
+   "memory": {
+    "answer": "The user bought an Acer Swift Go laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 270,
+    "latency": 1.1436209678649902,
+    "retrieval_latency": 0.03270721435546875,
+    "ingest_latency": 0.06421232223510742,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 4,
+   "attr": "sport",
+   "answer": "badminton",
+   "question": "What game does the user play every weekend?",
+   "full": {
+    "answer": "Badminton.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1060,
+    "latency": 1.0148887634277344
+   },
+   "memory": {
+    "answer": "Badminton.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 280,
+    "latency": 0.5102334022521973,
+    "retrieval_latency": 0.0333247184753418,
+    "ingest_latency": 0.0571439266204834,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 5,
+   "attr": "pet",
+   "answer": "Toffee",
+   "question": "How is the user's dog named?",
+   "full": {
+    "answer": "Toffee.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1051,
+    "latency": 0.8504049777984619
+   },
+   "memory": {
+    "answer": "Toffee.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 265,
+    "latency": 0.33463096618652344,
+    "retrieval_latency": 0.016678571701049805,
+    "ingest_latency": 0.04808640480041504,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 6,
+   "attr": "birthday",
+   "answer": "12 February",
+   "question": "On which date was the user born?",
+   "full": {
+    "answer": "The user was born on 12 February.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1078,
+    "latency": 1.3184661865234375
+   },
+   "memory": {
+    "answer": "The user was born on 12 February.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 272,
+    "latency": 0.8355121612548828,
+    "retrieval_latency": 0.024762630462646484,
+    "ingest_latency": 0.039763450622558594,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.0,
+   "needle_idx": 7,
+   "attr": "book",
+   "answer": "Project Hail Mary",
+   "question": "Which book is the user currently reading?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 1069,
+    "latency": 0.9534530639648438
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 264,
+    "latency": 0.5502848625183105,
+    "retrieval_latency": 0.023162364959716797,
+    "ingest_latency": 0.03448987007141113,
+    "needle_retrieved": false,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 0,
+   "attr": "doctor",
+   "answer": "Bose",
+   "question": "What is the name of the user's doctor?",
+   "full": {
+    "answer": "Dr. Bose",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1098,
+    "latency": 0.9507873058319092
+   },
+   "memory": {
+    "answer": "Dr. Bose",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 275,
+    "latency": 0.4537014961242676,
+    "retrieval_latency": 0.024584293365478516,
+    "ingest_latency": 0.057405710220336914,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 1,
+   "attr": "pet",
+   "answer": "Ginger",
+   "question": "What is the user's dog called?",
+   "full": {
+    "answer": "Ginger",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1099,
+    "latency": 0.8698902130126953
+   },
+   "memory": {
+    "answer": "Ginger.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 267,
+    "latency": 0.5259277820587158,
+    "retrieval_latency": 0.0418546199798584,
+    "ingest_latency": 0.05625653266906738,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 2,
+   "attr": "pet",
+   "answer": "Momo",
+   "question": "What is the name of the user's dog?",
+   "full": {
+    "answer": "Momo",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1058,
+    "latency": 0.8069701194763184
+   },
+   "memory": {
+    "answer": "Momo.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 270,
+    "latency": 0.4720335006713867,
+    "retrieval_latency": 0.040851593017578125,
+    "ingest_latency": 0.05632829666137695,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 3,
+   "attr": "allergy",
+   "answer": "gluten",
+   "question": "What is the user allergic to?",
+   "full": {
+    "answer": "Gluten.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1112,
+    "latency": 0.9577233791351318
+   },
+   "memory": {
+    "answer": "Gluten allergy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.5747823715209961,
+    "retrieval_latency": 0.040225982666015625,
+    "ingest_latency": 0.06376004219055176,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 4,
+   "attr": "job",
+   "answer": "nurse",
+   "question": "What is the user's job?",
+   "full": {
+    "answer": "Nurse",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1073,
+    "latency": 0.8615446090698242
+   },
+   "memory": {
+    "answer": "The user works as a nurse.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.8919949531555176,
+    "retrieval_latency": 0.03249788284301758,
+    "ingest_latency": 0.05664205551147461,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 5,
+   "attr": "language",
+   "answer": "Italian",
+   "question": "Which new language is the user picking up?",
+   "full": {
+    "answer": "Italian.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1112,
+    "latency": 0.875629186630249
+   },
+   "memory": {
+    "answer": "Italian.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 254,
+    "latency": 0.3252549171447754,
+    "retrieval_latency": 0.015503168106079102,
+    "ingest_latency": 0.056587934494018555,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 6,
+   "attr": "instrument",
+   "answer": "ukulele",
+   "question": "Which musical instrument does the user play?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 1081,
+    "latency": 1.1166753768920898
+   },
+   "memory": {
+    "answer": "The user plays the ukulele.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 272,
+    "latency": 0.947101354598999,
+    "retrieval_latency": 0.03927040100097656,
+    "ingest_latency": 0.056777000427246094,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.25,
+   "needle_idx": 7,
+   "attr": "car",
+   "answer": "Skoda Slavia",
+   "question": "What is the user's car?",
+   "full": {
+    "answer": "Skoda Slavia",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1089,
+    "latency": 0.9835281372070312
+   },
+   "memory": {
+    "answer": "Skoda Slavia.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.6597445011138916,
+    "retrieval_latency": 0.03187441825866699,
+    "ingest_latency": 0.054842233657836914,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 0,
+   "attr": "birthday",
+   "answer": "21 December",
+   "question": "When is the user's birthday?",
+   "full": {
+    "answer": "The user's birthday is on December 21st.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 1098,
+    "latency": 1.7893078327178955
+   },
+   "memory": {
+    "answer": "The user's birthday is on 21 December.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 306,
+    "latency": 1.2537975311279297,
+    "retrieval_latency": 0.0401921272277832,
+    "ingest_latency": 0.05659294128417969,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 1,
+   "attr": "book",
+   "answer": "Deep Work",
+   "question": "Which book is the user currently reading?",
+   "full": {
+    "answer": "Deep Work",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1081,
+    "latency": 0.8499505519866943
+   },
+   "memory": {
+    "answer": "The user is currently reading \"Deep Work.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 266,
+    "latency": 0.9893810749053955,
+    "retrieval_latency": 0.03383207321166992,
+    "ingest_latency": 0.06017589569091797,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 2,
+   "attr": "college",
+   "answer": "VIT Vellore",
+   "question": "What is the user's alma mater?",
+   "full": {
+    "answer": "VIT Vellore",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1059,
+    "latency": 1.180208683013916
+   },
+   "memory": {
+    "answer": "VIT Vellore",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 258,
+    "latency": 0.7400879859924316,
+    "retrieval_latency": 0.03188347816467285,
+    "ingest_latency": 0.06549072265625,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 3,
+   "attr": "birthday",
+   "answer": "12 February",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 1103,
+    "latency": 1.1924996376037598
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 304,
+    "latency": 0.6793019771575928,
+    "retrieval_latency": 0.03171229362487793,
+    "ingest_latency": 0.05572962760925293,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 4,
+   "attr": "doctor",
+   "answer": "Mehta",
+   "question": "What is the name of the user's doctor?",
+   "full": {
+    "answer": "Dr. Mehta",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1085,
+    "latency": 1.114199161529541
+   },
+   "memory": {
+    "answer": "Dr. Mehta",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 282,
+    "latency": 0.6997089385986328,
+    "retrieval_latency": 0.034699201583862305,
+    "ingest_latency": 0.043520212173461914,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 5,
+   "attr": "job",
+   "answer": "school teacher",
+   "question": "What does the user do for a living?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 1086,
+    "latency": 1.2936413288116455
+   },
+   "memory": {
+    "answer": "The user works as a school teacher.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 264,
+    "latency": 0.9527478218078613,
+    "retrieval_latency": 0.016965866088867188,
+    "ingest_latency": 0.07307958602905273,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 6,
+   "attr": "sport",
+   "answer": "cricket",
+   "question": "Which sport does the user play on weekends?",
+   "full": {
+    "answer": "The user plays cricket on weekends.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1071,
+    "latency": 1.2463266849517822
+   },
+   "memory": {
+    "answer": "The user plays cricket on weekends.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 273,
+    "latency": 0.7518291473388672,
+    "retrieval_latency": 0.03874039649963379,
+    "ingest_latency": 0.049782752990722656,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.5,
+   "needle_idx": 7,
+   "attr": "job",
+   "answer": "content writer",
+   "question": "What is the user's job?",
+   "full": {
+    "answer": "Content writer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1052,
+    "latency": 0.9808757305145264
+   },
+   "memory": {
+    "answer": "Content writer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 288,
+    "latency": 0.47562170028686523,
+    "retrieval_latency": 0.02485513687133789,
+    "ingest_latency": 0.04836893081665039,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 0,
+   "attr": "book",
+   "answer": "The Martian",
+   "question": "Which book is the user currently reading?",
+   "full": {
+    "answer": "The user is currently reading \"The Martian.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1082,
+    "latency": 1.6403589248657227
+   },
+   "memory": {
+    "answer": "The Martian.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.5436382293701172,
+    "retrieval_latency": 0.025469303131103516,
+    "ingest_latency": 0.04118180274963379,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 1,
+   "attr": "car",
+   "answer": "Mahindra Thar",
+   "question": "Which vehicle does the user own?",
+   "full": {
+    "answer": "Mahindra Thar",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1072,
+    "latency": 1.1671230792999268
+   },
+   "memory": {
+    "answer": "Mahindra Thar",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 289,
+    "latency": 0.6744017601013184,
+    "retrieval_latency": 0.04010915756225586,
+    "ingest_latency": 0.04921364784240723,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 2,
+   "attr": "food",
+   "answer": "vada pav",
+   "question": "Which dish does the user like the most?",
+   "full": {
+    "answer": "The user likes Vada Pav the most.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1085,
+    "latency": 1.6365845203399658
+   },
+   "memory": {
+    "answer": "Vada pav.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 249,
+    "latency": 0.6115615367889404,
+    "retrieval_latency": 0.04914689064025879,
+    "ingest_latency": 0.06511425971984863,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 3,
+   "attr": "team",
+   "answer": "Barcelona",
+   "question": "Which team is the user a fan of?",
+   "full": {
+    "answer": "Barcelona",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1055,
+    "latency": 0.8226878643035889
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.6573340892791748,
+    "retrieval_latency": 0.03314614295959473,
+    "ingest_latency": 0.05639028549194336,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 4,
+   "attr": "pet",
+   "answer": "Coco",
+   "question": "What is the name of the user's dog?",
+   "full": {
+    "answer": "Coco",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1029,
+    "latency": 0.8454432487487793
+   },
+   "memory": {
+    "answer": "Coco.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 256,
+    "latency": 0.43613266944885254,
+    "retrieval_latency": 0.024150848388671875,
+    "ingest_latency": 0.033400535583496094,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 5,
+   "attr": "team",
+   "answer": "Delhi Capitals",
+   "question": "Which team does the user support?",
+   "full": {
+    "answer": "Delhi Capitals",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1049,
+    "latency": 0.9337966442108154
+   },
+   "memory": {
+    "answer": "Delhi Capitals.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.5366306304931641,
+    "retrieval_latency": 0.032660722732543945,
+    "ingest_latency": 0.047460079193115234,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 6,
+   "attr": "team",
+   "answer": "Real Madrid",
+   "question": "Which team does the user support?",
+   "full": {
+    "answer": "Real Madrid",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1085,
+    "latency": 0.8589982986450195
+   },
+   "memory": {
+    "answer": "Real Madrid.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.4656188488006592,
+    "retrieval_latency": 0.019878149032592773,
+    "ingest_latency": 0.049132347106933594,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 0.75,
+   "needle_idx": 7,
+   "attr": "sport",
+   "answer": "tennis",
+   "question": "What game does the user play every weekend?",
+   "full": {
+    "answer": "The user plays tennis every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1064,
+    "latency": 1.379476547241211
+   },
+   "memory": {
+    "answer": "Tennis.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 255,
+    "latency": 0.4939768314361572,
+    "retrieval_latency": 0.023940324783325195,
+    "ingest_latency": 0.06682038307189941,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 0,
+   "attr": "language",
+   "answer": "French",
+   "question": "Which new language is the user picking up?",
+   "full": {
+    "answer": "French",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1058,
+    "latency": 0.7512204647064209
+   },
+   "memory": {
+    "answer": "French.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.35608601570129395,
+    "retrieval_latency": 0.01615595817565918,
+    "ingest_latency": 0.056317806243896484,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 1,
+   "attr": "gym",
+   "answer": "Talwalkars",
+   "question": "Which gym does the user go to?",
+   "full": {
+    "answer": "The user goes to Gold's Gym.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 1083,
+    "latency": 1.374424695968628
+   },
+   "memory": {
+    "answer": "Talwalkars",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 283,
+    "latency": 0.5680248737335205,
+    "retrieval_latency": 0.04470396041870117,
+    "ingest_latency": 0.07359743118286133,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 2,
+   "attr": "sport",
+   "answer": "table tennis",
+   "question": "What sport does the user play?",
+   "full": {
+    "answer": "table tennis",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1063,
+    "latency": 0.9018666744232178
+   },
+   "memory": {
+    "answer": "table tennis",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.38705992698669434,
+    "retrieval_latency": 0.04315972328186035,
+    "ingest_latency": 0.07157254219055176,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 3,
+   "attr": "gym",
+   "answer": "Anytime Fitness",
+   "question": "Which gym does the user go to?",
+   "full": {
+    "answer": "Anytime Fitness",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1092,
+    "latency": 0.9473171234130859
+   },
+   "memory": {
+    "answer": "Anytime Fitness.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 271,
+    "latency": 0.5612051486968994,
+    "retrieval_latency": 0.015793323516845703,
+    "ingest_latency": 0.06493830680847168,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 4,
+   "attr": "birthday",
+   "answer": "5 May",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "5 May.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1072,
+    "latency": 0.8917884826660156
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 269,
+    "latency": 0.7055130004882812,
+    "retrieval_latency": 0.016737699508666992,
+    "ingest_latency": 0.048096418380737305,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 5,
+   "attr": "gym",
+   "answer": "Fitness First",
+   "question": "Which gym does the user go to?",
+   "full": {
+    "answer": "Fitness First",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1092,
+    "latency": 0.9062144756317139
+   },
+   "memory": {
+    "answer": "Fitness First.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 268,
+    "latency": 0.5293529033660889,
+    "retrieval_latency": 0.018494129180908203,
+    "ingest_latency": 0.06272292137145996,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 6,
+   "attr": "food",
+   "answer": "dal makhani",
+   "question": "What is the user's favourite food?",
+   "full": {
+    "answer": "Butter chicken",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 1139,
+    "latency": 1.0391793251037598
+   },
+   "memory": {
+    "answer": "dal makhani",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 277,
+    "latency": 0.6619713306427002,
+    "retrieval_latency": 0.04079771041870117,
+    "ingest_latency": 0.056993961334228516,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 1000,
+   "depth": 1.0,
+   "needle_idx": 7,
+   "attr": "doctor",
+   "answer": "Nair",
+   "question": "Who is the user's physician?",
+   "full": {
+    "answer": "Dr. Nair",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 1089,
+    "latency": 0.985499382019043
+   },
+   "memory": {
+    "answer": "Dr. Nair",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 274,
+    "latency": 0.47855114936828613,
+    "retrieval_latency": 0.02425694465637207,
+    "ingest_latency": 0.04272603988647461,
+    "needle_retrieved": true,
+    "memories": 68
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 0,
+   "attr": "book",
+   "answer": "Deep Work",
+   "question": "Which book is the user currently reading?",
+   "full": {
+    "answer": "The user is currently reading \"Deep Work.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2095,
+    "latency": 1.9346060752868652
+   },
+   "memory": {
+    "answer": "Deep Work.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 283,
+    "latency": 0.3616495132446289,
+    "retrieval_latency": 0.016260623931884766,
+    "ingest_latency": 0.04882621765136719,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 1,
+   "attr": "sport",
+   "answer": "volleyball",
+   "question": "What game does the user play every weekend?",
+   "full": {
+    "answer": "Weekends are for volleyball for me.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2101,
+    "latency": 2.0466227531433105
+   },
+   "memory": {
+    "answer": "Volleyball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 286,
+    "latency": 0.542452335357666,
+    "retrieval_latency": 0.02458667755126953,
+    "ingest_latency": 0.0735769271850586,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 2,
+   "attr": "language",
+   "answer": "German",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "The user is currently learning German.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2120,
+    "latency": 1.957406997680664
+   },
+   "memory": {
+    "answer": "Korean.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 246,
+    "latency": 0.46753978729248047,
+    "retrieval_latency": 0.03230166435241699,
+    "ingest_latency": 0.08926868438720703,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 3,
+   "attr": "instrument",
+   "answer": "flute",
+   "question": "What does the user play musically?",
+   "full": {
+    "answer": "The user plays the flute.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2077,
+    "latency": 1.9425089359283447
+   },
+   "memory": {
+    "answer": "The user plays the flute.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 253,
+    "latency": 0.7079823017120361,
+    "retrieval_latency": 0.04088735580444336,
+    "ingest_latency": 0.12038207054138184,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 4,
+   "attr": "allergy",
+   "answer": "peanuts",
+   "question": "What should the user avoid because of an allergy?",
+   "full": {
+    "answer": "Peanuts.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2131,
+    "latency": 1.6984210014343262
+   },
+   "memory": {
+    "answer": "Peanuts.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.6172628402709961,
+    "retrieval_latency": 0.04080629348754883,
+    "ingest_latency": 0.07409024238586426,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 5,
+   "attr": "college",
+   "answer": "IIT Delhi",
+   "question": "Where did the user study?",
+   "full": {
+    "answer": "IIT Delhi.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2123,
+    "latency": 1.6858725547790527
+   },
+   "memory": {
+    "answer": "IIT Delhi.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 270,
+    "latency": 0.5371103286743164,
+    "retrieval_latency": 0.03291034698486328,
+    "ingest_latency": 0.07386231422424316,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 6,
+   "attr": "team",
+   "answer": "Rajasthan Royals",
+   "question": "What is the user's favourite team?",
+   "full": {
+    "answer": "Rajasthan Royals",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2088,
+    "latency": 1.6668925285339355
+   },
+   "memory": {
+    "answer": "Rajasthan Royals.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.6854510307312012,
+    "retrieval_latency": 0.03240561485290527,
+    "ingest_latency": 0.08988189697265625,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.0,
+   "needle_idx": 7,
+   "attr": "language",
+   "answer": "German",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "German",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2060,
+    "latency": 1.3963425159454346
+   },
+   "memory": {
+    "answer": "German.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 250,
+    "latency": 0.3655586242675781,
+    "retrieval_latency": 0.0258023738861084,
+    "ingest_latency": 0.09531140327453613,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 0,
+   "attr": "doctor",
+   "answer": "Mehta",
+   "question": "What is the name of the user's doctor?",
+   "full": {
+    "answer": "Dr. Mehta",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2152,
+    "latency": 1.6737675666809082
+   },
+   "memory": {
+    "answer": "Dr. Mehta",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 282,
+    "latency": 0.5392639636993408,
+    "retrieval_latency": 0.02448558807373047,
+    "ingest_latency": 0.07210254669189453,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 1,
+   "attr": "job",
+   "answer": "dentist",
+   "question": "What is the user's profession?",
+   "full": {
+    "answer": "Dentist",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2059,
+    "latency": 1.5539300441741943
+   },
+   "memory": {
+    "answer": "Dentist.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 247,
+    "latency": 0.5891525745391846,
+    "retrieval_latency": 0.04433727264404297,
+    "ingest_latency": 0.06646585464477539,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 2,
+   "attr": "food",
+   "answer": "dal makhani",
+   "question": "What is the user's favourite food?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 2103,
+    "latency": 1.7682080268859863
+   },
+   "memory": {
+    "answer": "Dal makhani.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 267,
+    "latency": 0.7600400447845459,
+    "retrieval_latency": 0.024303674697875977,
+    "ingest_latency": 0.07476997375488281,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 3,
+   "attr": "doctor",
+   "answer": "Mehta",
+   "question": "What is the name of the user's doctor?",
+   "full": {
+    "answer": "Dr. Mehta",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2056,
+    "latency": 1.851844072341919
+   },
+   "memory": {
+    "answer": "Dr. Mehta.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 272,
+    "latency": 0.8158314228057861,
+    "retrieval_latency": 0.026388168334960938,
+    "ingest_latency": 0.11314821243286133,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 4,
+   "attr": "language",
+   "answer": "Mandarin",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "Python",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 2099,
+    "latency": 1.381403923034668
+   },
+   "memory": {
+    "answer": "Mandarin",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 254,
+    "latency": 0.421724796295166,
+    "retrieval_latency": 0.024913311004638672,
+    "ingest_latency": 0.07300353050231934,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 5,
+   "attr": "job",
+   "answer": "lawyer",
+   "question": "What is the user's job?",
+   "full": {
+    "answer": "Lawyer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2097,
+    "latency": 1.552882194519043
+   },
+   "memory": {
+    "answer": "The user work as a lawyer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 266,
+    "latency": 0.8826353549957275,
+    "retrieval_latency": 0.024357318878173828,
+    "ingest_latency": 0.08061480522155762,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 6,
+   "attr": "team",
+   "answer": "Royal Challengers Bengaluru",
+   "question": "Which team does the user support?",
+   "full": {
+    "answer": "Chennai Super Kings",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 2120,
+    "latency": 1.7239816188812256
+   },
+   "memory": {
+    "answer": "Royal Challengers Bengaluru.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 266,
+    "latency": 0.6925315856933594,
+    "retrieval_latency": 0.01923203468322754,
+    "ingest_latency": 0.08104300498962402,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.25,
+   "needle_idx": 7,
+   "attr": "instrument",
+   "answer": "tabla",
+   "question": "Which musical instrument does the user play?",
+   "full": {
+    "answer": "The user plays kabaddi.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 2123,
+    "latency": 1.9416015148162842
+   },
+   "memory": {
+    "answer": "The user plays the tabla.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.737546443939209,
+    "retrieval_latency": 0.023523569107055664,
+    "ingest_latency": 0.08098125457763672,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 0,
+   "attr": "allergy",
+   "answer": "lactose",
+   "question": "What should the user avoid because of an allergy?",
+   "full": {
+    "answer": "Avoid lactose.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2101,
+    "latency": 1.8048501014709473
+   },
+   "memory": {
+    "answer": "The user avoids lactose due to an allergy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 266,
+    "latency": 1.2682459354400635,
+    "retrieval_latency": 0.024330854415893555,
+    "ingest_latency": 0.0707852840423584,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 1,
+   "attr": "laptop",
+   "answer": "ThinkPad X1 Carbon",
+   "question": "Which laptop did the user buy?",
+   "full": {
+    "answer": "The user bought a ThinkPad X1 Carbon laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2157,
+    "latency": 2.628628969192505
+   },
+   "memory": {
+    "answer": "The user bought a ThinkPad X1 Carbon laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 277,
+    "latency": 1.4399125576019287,
+    "retrieval_latency": 0.02385997772216797,
+    "ingest_latency": 0.09709668159484863,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 2,
+   "attr": "team",
+   "answer": "Liverpool",
+   "question": "What is the user's favourite team?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 2068,
+    "latency": 1.7590680122375488
+   },
+   "memory": {
+    "answer": "Liverpool.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.411179780960083,
+    "retrieval_latency": 0.025049686431884766,
+    "ingest_latency": 0.0999593734741211,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 3,
+   "attr": "language",
+   "answer": "French",
+   "question": "What language is the user studying?",
+   "full": {
+    "answer": "The user is currently studying French on Duolingo.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2082,
+    "latency": 2.487992763519287
+   },
+   "memory": {
+    "answer": "French.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 265,
+    "latency": 0.41290855407714844,
+    "retrieval_latency": 0.03961515426635742,
+    "ingest_latency": 0.07525897026062012,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 4,
+   "attr": "language",
+   "answer": "Korean",
+   "question": "Which new language is the user picking up?",
+   "full": {
+    "answer": "Python",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 2064,
+    "latency": 1.3545408248901367
+   },
+   "memory": {
+    "answer": "Korean.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.41332197189331055,
+    "retrieval_latency": 0.017145395278930664,
+    "ingest_latency": 0.06568336486816406,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 5,
+   "attr": "instrument",
+   "answer": "violin",
+   "question": "What instrument is the user learning?",
+   "full": {
+    "answer": "The user is learning the violin.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2131,
+    "latency": 1.9327874183654785
+   },
+   "memory": {
+    "answer": "The user is learning the violin.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 277,
+    "latency": 0.9725558757781982,
+    "retrieval_latency": 0.03246736526489258,
+    "ingest_latency": 0.07916975021362305,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 6,
+   "attr": "allergy",
+   "answer": "soy",
+   "question": "Which allergy does the user have?",
+   "full": {
+    "answer": "The user has an allergy to soy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2073,
+    "latency": 2.0988755226135254
+   },
+   "memory": {
+    "answer": "The user has an allergy to soy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 256,
+    "latency": 0.931830644607544,
+    "retrieval_latency": 0.04135322570800781,
+    "ingest_latency": 0.08910107612609863,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.5,
+   "needle_idx": 7,
+   "attr": "doctor",
+   "answer": "Nair",
+   "question": "Who is the user's physician?",
+   "full": {
+    "answer": "Dr. Nair is the user's physician.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2112,
+    "latency": 2.1336770057678223
+   },
+   "memory": {
+    "answer": "Dr. Nair",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 279,
+    "latency": 0.5523486137390137,
+    "retrieval_latency": 0.018838882446289062,
+    "ingest_latency": 0.09520530700683594,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 0,
+   "attr": "book",
+   "answer": "Shoe Dog",
+   "question": "Which book is the user currently reading?",
+   "full": {
+    "answer": "Shoe Dog",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2120,
+    "latency": 1.6472294330596924
+   },
+   "memory": {
+    "answer": "Shoe Dog",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 277,
+    "latency": 0.4686167240142822,
+    "retrieval_latency": 0.020061254501342773,
+    "ingest_latency": 0.11948490142822266,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 1,
+   "attr": "pet",
+   "answer": "Pepper",
+   "question": "What is the user's dog called?",
+   "full": {
+    "answer": "Pepper",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2123,
+    "latency": 1.559971809387207
+   },
+   "memory": {
+    "answer": "Pepper.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.5203077793121338,
+    "retrieval_latency": 0.024848461151123047,
+    "ingest_latency": 0.09174776077270508,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 2,
+   "attr": "book",
+   "answer": "Educated",
+   "question": "Which book is the user currently reading?",
+   "full": {
+    "answer": "Educated",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2067,
+    "latency": 1.44197416305542
+   },
+   "memory": {
+    "answer": "Educated.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 247,
+    "latency": 0.4065375328063965,
+    "retrieval_latency": 0.024390220642089844,
+    "ingest_latency": 0.0821833610534668,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 3,
+   "attr": "team",
+   "answer": "Chennai Super Kings",
+   "question": "Which team does the user support?",
+   "full": {
+    "answer": "Chennai Super Kings",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2149,
+    "latency": 1.6705522537231445
+   },
+   "memory": {
+    "answer": "Chennai Super Kings.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 269,
+    "latency": 0.6375901699066162,
+    "retrieval_latency": 0.01656055450439453,
+    "ingest_latency": 0.09736990928649902,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 4,
+   "attr": "sport",
+   "answer": "volleyball",
+   "question": "Which sport does the user play on weekends?",
+   "full": {
+    "answer": "Weekends are for volleyball for me.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2065,
+    "latency": 2.0281078815460205
+   },
+   "memory": {
+    "answer": "Volleyball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 277,
+    "latency": 0.570389986038208,
+    "retrieval_latency": 0.02457571029663086,
+    "ingest_latency": 0.05524015426635742,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 5,
+   "attr": "allergy",
+   "answer": "soy",
+   "question": "Which allergy does the user have?",
+   "full": {
+    "answer": "The user has an allergy to soy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2061,
+    "latency": 2.0681095123291016
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 270,
+    "latency": 0.6032323837280273,
+    "retrieval_latency": 0.019893884658813477,
+    "ingest_latency": 0.07676506042480469,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 6,
+   "attr": "birthday",
+   "answer": "28 October",
+   "question": "When is the user's birthday?",
+   "full": {
+    "answer": "The user's birthday is on 28 October.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2104,
+    "latency": 2.247147560119629
+   },
+   "memory": {
+    "answer": "The user's birthday is on 28 October.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 283,
+    "latency": 1.2381417751312256,
+    "retrieval_latency": 0.020258665084838867,
+    "ingest_latency": 0.08479785919189453,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 0.75,
+   "needle_idx": 7,
+   "attr": "team",
+   "answer": "Mumbai Indians",
+   "question": "Which team is the user a fan of?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 2089,
+    "latency": 1.718843936920166
+   },
+   "memory": {
+    "answer": "Mumbai Indians.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.5129427909851074,
+    "retrieval_latency": 0.016593217849731445,
+    "ingest_latency": 0.0735623836517334,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 0,
+   "attr": "college",
+   "answer": "IIIT Hyderabad",
+   "question": "Which college did the user graduate from?",
+   "full": {
+    "answer": "IIIT Hyderabad",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2028,
+    "latency": 2.9169797897338867
+   },
+   "memory": {
+    "answer": "IIIT Hyderabad.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 266,
+    "latency": 0.6283876895904541,
+    "retrieval_latency": 0.031850337982177734,
+    "ingest_latency": 0.07300448417663574,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 1,
+   "attr": "team",
+   "answer": "Real Madrid",
+   "question": "Which team does the user support?",
+   "full": {
+    "answer": "Real Madrid.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2086,
+    "latency": 1.682100772857666
+   },
+   "memory": {
+    "answer": "Real Madrid.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.48639535903930664,
+    "retrieval_latency": 0.024312734603881836,
+    "ingest_latency": 0.090179443359375,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 2,
+   "attr": "job",
+   "answer": "nurse",
+   "question": "What is the user's profession?",
+   "full": {
+    "answer": "Nurse",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2090,
+    "latency": 1.4695394039154053
+   },
+   "memory": {
+    "answer": "Nurse.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 253,
+    "latency": 0.4554004669189453,
+    "retrieval_latency": 0.03183746337890625,
+    "ingest_latency": 0.06041669845581055,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 3,
+   "attr": "allergy",
+   "answer": "gluten",
+   "question": "Which allergy does the user have?",
+   "full": {
+    "answer": "The user has an allergy to gluten.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2079,
+    "latency": 2.010688543319702
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 265,
+    "latency": 0.64166259765625,
+    "retrieval_latency": 0.02458786964416504,
+    "ingest_latency": 0.06589031219482422,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 4,
+   "attr": "allergy",
+   "answer": "dust",
+   "question": "Which allergy does the user have?",
+   "full": {
+    "answer": "Allergic reaction to dust.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2075,
+    "latency": 1.8174965381622314
+   },
+   "memory": {
+    "answer": "Dust.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 246,
+    "latency": 0.41559529304504395,
+    "retrieval_latency": 0.02475261688232422,
+    "ingest_latency": 0.0890047550201416,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 5,
+   "attr": "laptop",
+   "answer": "MacBook Air M3",
+   "question": "What is the model of the user's laptop?",
+   "full": {
+    "answer": "The user's laptop is a MacBook Air M3.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2095,
+    "latency": 2.23585844039917
+   },
+   "memory": {
+    "answer": "The model of the user's laptop is a MacBook Air M3.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 265,
+    "latency": 1.4786338806152344,
+    "retrieval_latency": 0.0268402099609375,
+    "ingest_latency": 0.08750534057617188,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 6,
+   "attr": "car",
+   "answer": "Tata Nexon",
+   "question": "Which vehicle does the user own?",
+   "full": {
+    "answer": "Tata Nexon",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2120,
+    "latency": 1.7221341133117676
+   },
+   "memory": {
+    "answer": "Tata Nexon.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 274,
+    "latency": 0.6808509826660156,
+    "retrieval_latency": 0.024582862854003906,
+    "ingest_latency": 0.09910345077514648,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 2000,
+   "depth": 1.0,
+   "needle_idx": 7,
+   "attr": "car",
+   "answer": "Tata Nexon",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "Tata Nexon",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 2107,
+    "latency": 1.6126158237457275
+   },
+   "memory": {
+    "answer": "Tata Nexon.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.6473796367645264,
+    "retrieval_latency": 0.03250837326049805,
+    "ingest_latency": 0.07353782653808594,
+    "needle_retrieved": true,
+    "memories": 138
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 0,
+   "attr": "car",
+   "answer": "Honda City",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "The user drives a Honda City.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4163,
+    "latency": 3.0732083320617676
+   },
+   "memory": {
+    "answer": "The user drives a Honda City.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 254,
+    "latency": 0.843853235244751,
+    "retrieval_latency": 0.016620635986328125,
+    "ingest_latency": 0.09880971908569336,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 1,
+   "attr": "job",
+   "answer": "nurse",
+   "question": "What is the user's profession?",
+   "full": {
+    "answer": "The user's profession is being a nurse.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4209,
+    "latency": 3.297194480895996
+   },
+   "memory": {
+    "answer": "The user's profession is a nurse.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.9599161148071289,
+    "retrieval_latency": 0.025125741958618164,
+    "ingest_latency": 0.08179378509521484,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 2,
+   "attr": "gym",
+   "answer": "Fitness First",
+   "question": "What is the name of the user's gym?",
+   "full": {
+    "answer": "Fitness First gym near my place.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4168,
+    "latency": 3.232011556625366
+   },
+   "memory": {
+    "answer": "Fitness First",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 267,
+    "latency": 0.47472071647644043,
+    "retrieval_latency": 0.05015993118286133,
+    "ingest_latency": 0.13788771629333496,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 3,
+   "attr": "food",
+   "answer": "rajma chawal",
+   "question": "Which dish does the user like the most?",
+   "full": {
+    "answer": "The user likes rajma chawal the most.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4212,
+    "latency": 3.450568437576294
+   },
+   "memory": {
+    "answer": "Rajma chawal",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 271,
+    "latency": 0.8019170761108398,
+    "retrieval_latency": 0.02463674545288086,
+    "ingest_latency": 0.0943002700805664,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 4,
+   "attr": "car",
+   "answer": "Hyundai Creta",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "The user drives a Hyundai Creta.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4139,
+    "latency": 3.215794324874878
+   },
+   "memory": {
+    "answer": "The user drives a Hyundai Creta.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.9626646041870117,
+    "retrieval_latency": 0.02489328384399414,
+    "ingest_latency": 0.08261394500732422,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 5,
+   "attr": "doctor",
+   "answer": "Desai",
+   "question": "What is the name of the user's doctor?",
+   "full": {
+    "answer": "Dr. Desai",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4169,
+    "latency": 2.8088836669921875
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 280,
+    "latency": 0.6270644664764404,
+    "retrieval_latency": 0.016960859298706055,
+    "ingest_latency": 0.10741376876831055,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 6,
+   "attr": "instrument",
+   "answer": "piano",
+   "question": "What instrument is the user learning?",
+   "full": {
+    "answer": "The user is learning the piano.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4257,
+    "latency": 3.2200348377227783
+   },
+   "memory": {
+    "answer": "The user is learning the piano.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.9538848400115967,
+    "retrieval_latency": 0.03392362594604492,
+    "ingest_latency": 0.10641145706176758,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.0,
+   "needle_idx": 7,
+   "attr": "car",
+   "answer": "Toyota Innova",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "The user drives a Toyota Innova.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4215,
+    "latency": 3.1900837421417236
+   },
+   "memory": {
+    "answer": "The user drives a Toyota Innova.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 254,
+    "latency": 0.9186513423919678,
+    "retrieval_latency": 0.02462315559387207,
+    "ingest_latency": 0.09078693389892578,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 0,
+   "attr": "allergy",
+   "answer": "sesame",
+   "question": "What is the user allergic to?",
+   "full": {
+    "answer": "Sesame",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4208,
+    "latency": 2.751378059387207
+   },
+   "memory": {
+    "answer": "Sesame.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 242,
+    "latency": 0.5115318298339844,
+    "retrieval_latency": 0.016744375228881836,
+    "ingest_latency": 0.13298845291137695,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 1,
+   "attr": "book",
+   "answer": "The Martian",
+   "question": "What is the user reading these days?",
+   "full": {
+    "answer": "The user is currently reading \"The Martian.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4211,
+    "latency": 3.22316575050354
+   },
+   "memory": {
+    "answer": "The user is currently reading \"The Martian.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 258,
+    "latency": 1.0308349132537842,
+    "retrieval_latency": 0.033420562744140625,
+    "ingest_latency": 0.10904717445373535,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 2,
+   "attr": "birthday",
+   "answer": "21 December",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 4120,
+    "latency": 2.8517417907714844
+   },
+   "memory": {
+    "answer": "The user's birthday is on 21 December.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 304,
+    "latency": 1.135655403137207,
+    "retrieval_latency": 0.024498701095581055,
+    "ingest_latency": 0.08431482315063477,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 3,
+   "attr": "sport",
+   "answer": "volleyball",
+   "question": "Which sport does the user play on weekends?",
+   "full": {
+    "answer": "volleyball",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4321,
+    "latency": 2.7737414836883545
+   },
+   "memory": {
+    "answer": "Volleyball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.5527093410491943,
+    "retrieval_latency": 0.019366025924682617,
+    "ingest_latency": 0.10210037231445312,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 4,
+   "attr": "language",
+   "answer": "German",
+   "question": "Which new language is the user picking up?",
+   "full": {
+    "answer": "Python",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 4198,
+    "latency": 2.5804290771484375
+   },
+   "memory": {
+    "answer": "German.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 267,
+    "latency": 0.3716750144958496,
+    "retrieval_latency": 0.02430558204650879,
+    "ingest_latency": 0.1041555404663086,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 5,
+   "attr": "sport",
+   "answer": "basketball",
+   "question": "What sport does the user play?",
+   "full": {
+    "answer": "Basketball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4129,
+    "latency": 2.7246272563934326
+   },
+   "memory": {
+    "answer": "Basketball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 252,
+    "latency": 0.4316573143005371,
+    "retrieval_latency": 0.018909692764282227,
+    "ingest_latency": 0.11996865272521973,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 6,
+   "attr": "instrument",
+   "answer": "flute",
+   "question": "What does the user play musically?",
+   "full": {
+    "answer": "The user plays the flute in their free time.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4273,
+    "latency": 3.3749611377716064
+   },
+   "memory": {
+    "answer": "The user plays the flute.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.6854569911956787,
+    "retrieval_latency": 0.016491174697875977,
+    "ingest_latency": 0.10688543319702148,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.25,
+   "needle_idx": 7,
+   "attr": "car",
+   "answer": "Skoda Slavia",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "Skoda Slavia",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4199,
+    "latency": 2.8703839778900146
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.6706395149230957,
+    "retrieval_latency": 0.024493694305419922,
+    "ingest_latency": 0.07420468330383301,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 0,
+   "attr": "book",
+   "answer": "Shoe Dog",
+   "question": "Which book did the user start recently?",
+   "full": {
+    "answer": "The user started \"Shoe Dog\" recently.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4191,
+    "latency": 3.364795684814453
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 289,
+    "latency": 0.7042982578277588,
+    "retrieval_latency": 0.03847193717956543,
+    "ingest_latency": 0.10566878318786621,
+    "needle_retrieved": false,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 1,
+   "attr": "instrument",
+   "answer": "flute",
+   "question": "Which musical instrument does the user play?",
+   "full": {
+    "answer": "The user plays the flute.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4238,
+    "latency": 3.0492517948150635
+   },
+   "memory": {
+    "answer": "The user plays the flute.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 253,
+    "latency": 0.6520264148712158,
+    "retrieval_latency": 0.016077756881713867,
+    "ingest_latency": 0.09859681129455566,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 2,
+   "attr": "team",
+   "answer": "Real Madrid",
+   "question": "Which team is the user a fan of?",
+   "full": {
+    "answer": "Real Madrid.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4195,
+    "latency": 2.731914758682251
+   },
+   "memory": {
+    "answer": "Real Madrid.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 255,
+    "latency": 0.4373037815093994,
+    "retrieval_latency": 0.016057729721069336,
+    "ingest_latency": 0.09949874877929688,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 3,
+   "attr": "college",
+   "answer": "DTU",
+   "question": "What is the user's alma mater?",
+   "full": {
+    "answer": "DTU is the user's alma mater.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4194,
+    "latency": 3.269096612930298
+   },
+   "memory": {
+    "answer": "DTU.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 256,
+    "latency": 0.41573357582092285,
+    "retrieval_latency": 0.0161588191986084,
+    "ingest_latency": 0.11518359184265137,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 4,
+   "attr": "car",
+   "answer": "Kia Seltos",
+   "question": "Which vehicle does the user own?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 4239,
+    "latency": 2.9509410858154297
+   },
+   "memory": {
+    "answer": "The user owns a Kia Seltos.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 293,
+    "latency": 1.0265576839447021,
+    "retrieval_latency": 0.011777639389038086,
+    "ingest_latency": 0.10986948013305664,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 5,
+   "attr": "team",
+   "answer": "Rajasthan Royals",
+   "question": "Which team is the user a fan of?",
+   "full": {
+    "answer": "Rajasthan Royals",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4145,
+    "latency": 2.7583107948303223
+   },
+   "memory": {
+    "answer": "Rajasthan Royals",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.5993673801422119,
+    "retrieval_latency": 0.015318632125854492,
+    "ingest_latency": 0.09113192558288574,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 6,
+   "attr": "birthday",
+   "answer": "14 March",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "The user's date of birth is 14 March.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4157,
+    "latency": 3.7654106616973877
+   },
+   "memory": {
+    "answer": "The user was born on 14 March.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 304,
+    "latency": 1.2222669124603271,
+    "retrieval_latency": 0.028756141662597656,
+    "ingest_latency": 0.10970377922058105,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.5,
+   "needle_idx": 7,
+   "attr": "team",
+   "answer": "Arsenal",
+   "question": "Which team does the user support?",
+   "full": {
+    "answer": "Arsenal",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4144,
+    "latency": 2.6245357990264893
+   },
+   "memory": {
+    "answer": "Arsenal.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.4907686710357666,
+    "retrieval_latency": 0.024283409118652344,
+    "ingest_latency": 0.07523465156555176,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 0,
+   "attr": "food",
+   "answer": "thepla",
+   "question": "Which dish does the user like the most?",
+   "full": {
+    "answer": "The user likes \"number one dish\" which translates to \"nothing beats thepla\".",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4214,
+    "latency": 4.150218486785889
+   },
+   "memory": {
+    "answer": "plaa",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 265,
+    "latency": 0.39838433265686035,
+    "retrieval_latency": 0.03089427947998047,
+    "ingest_latency": 0.12343811988830566,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 1,
+   "attr": "language",
+   "answer": "German",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "German",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4195,
+    "latency": 2.592449903488159
+   },
+   "memory": {
+    "answer": "German.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 243,
+    "latency": 0.363161563873291,
+    "retrieval_latency": 0.024524927139282227,
+    "ingest_latency": 0.11388802528381348,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 2,
+   "attr": "college",
+   "answer": "IIT Delhi",
+   "question": "Where did the user study?",
+   "full": {
+    "answer": "Tokyo",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 4088,
+    "latency": 2.5601401329040527
+   },
+   "memory": {
+    "answer": "IIT Delhi",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.4824647903442383,
+    "retrieval_latency": 0.020928144454956055,
+    "ingest_latency": 0.1084747314453125,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 3,
+   "attr": "pet",
+   "answer": "Buddy",
+   "question": "How is the user's dog named?",
+   "full": {
+    "answer": "Buddy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4159,
+    "latency": 2.6843974590301514
+   },
+   "memory": {
+    "answer": "Buddy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 267,
+    "latency": 0.5110347270965576,
+    "retrieval_latency": 0.028656482696533203,
+    "ingest_latency": 0.12260031700134277,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 4,
+   "attr": "gym",
+   "answer": "Fitness First",
+   "question": "Which gym does the user go to?",
+   "full": {
+    "answer": "Fitness First",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4133,
+    "latency": 2.666802167892456
+   },
+   "memory": {
+    "answer": "Fitness First gym near the user's place.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 1.1169476509094238,
+    "retrieval_latency": 0.022675275802612305,
+    "ingest_latency": 0.1074979305267334,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 5,
+   "attr": "language",
+   "answer": "Korean",
+   "question": "Which new language is the user picking up?",
+   "full": {
+    "answer": "Python",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 4123,
+    "latency": 2.542163133621216
+   },
+   "memory": {
+    "answer": "Korean.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 270,
+    "latency": 0.46332597732543945,
+    "retrieval_latency": 0.020365238189697266,
+    "ingest_latency": 0.11710476875305176,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 6,
+   "attr": "language",
+   "answer": "Italian",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "Italian",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4099,
+    "latency": 2.534998893737793
+   },
+   "memory": {
+    "answer": "Italian.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 243,
+    "latency": 0.3457221984863281,
+    "retrieval_latency": 0.025789260864257812,
+    "ingest_latency": 0.15367460250854492,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 0.75,
+   "needle_idx": 7,
+   "attr": "team",
+   "answer": "Arsenal",
+   "question": "What is the user's favourite team?",
+   "full": {
+    "answer": "Noted. Anything else you'd like to tell me?",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 4273,
+    "latency": 3.8211891651153564
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 256,
+    "latency": 0.6676890850067139,
+    "retrieval_latency": 0.02462458610534668,
+    "ingest_latency": 0.12359499931335449,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 0,
+   "attr": "sport",
+   "answer": "football",
+   "question": "Which sport does the user play on weekends?",
+   "full": {
+    "answer": "The user plays football every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4267,
+    "latency": 3.1223273277282715
+   },
+   "memory": {
+    "answer": "The user plays football every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.8746588230133057,
+    "retrieval_latency": 0.01697230339050293,
+    "ingest_latency": 0.10519933700561523,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 1,
+   "attr": "book",
+   "answer": "Educated",
+   "question": "Which book did the user start recently?",
+   "full": {
+    "answer": "Educated",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4174,
+    "latency": 2.6878957748413086
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 287,
+    "latency": 0.643155574798584,
+    "retrieval_latency": 0.02429509162902832,
+    "ingest_latency": 0.08672237396240234,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 2,
+   "attr": "job",
+   "answer": "software engineer",
+   "question": "What does the user do for a living?",
+   "full": {
+    "answer": "The user's day job is being a software engineer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4159,
+    "latency": 3.365940809249878
+   },
+   "memory": {
+    "answer": "Software engineer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 252,
+    "latency": 0.41459059715270996,
+    "retrieval_latency": 0.01670217514038086,
+    "ingest_latency": 0.09222674369812012,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 3,
+   "attr": "book",
+   "answer": "Deep Work",
+   "question": "Which book did the user start recently?",
+   "full": {
+    "answer": "The user started \"Deep Work\" this week.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4129,
+    "latency": 3.2835500240325928
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 284,
+    "latency": 0.6533677577972412,
+    "retrieval_latency": 0.0248873233795166,
+    "ingest_latency": 0.10605454444885254,
+    "needle_retrieved": false,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 4,
+   "attr": "college",
+   "answer": "NIT Trichy",
+   "question": "Where did the user study?",
+   "full": {
+    "answer": "NIT Trichy",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4124,
+    "latency": 2.918513536453247
+   },
+   "memory": {
+    "answer": "NIT Trichy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 268,
+    "latency": 0.7903916835784912,
+    "retrieval_latency": 0.01951146125793457,
+    "ingest_latency": 0.11034750938415527,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 5,
+   "attr": "language",
+   "answer": "Portuguese",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "Portuguese",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4118,
+    "latency": 2.6951661109924316
+   },
+   "memory": {
+    "answer": "Portuguese.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 244,
+    "latency": 0.5128231048583984,
+    "retrieval_latency": 0.024745941162109375,
+    "ingest_latency": 0.10864925384521484,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 6,
+   "attr": "car",
+   "answer": "Kia Seltos",
+   "question": "What is the user's car?",
+   "full": {
+    "answer": "The user's car is a Kia Seltos.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4228,
+    "latency": 3.5769906044006348
+   },
+   "memory": {
+    "answer": "Kia Seltos.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 261,
+    "latency": 0.873969554901123,
+    "retrieval_latency": 0.025177717208862305,
+    "ingest_latency": 0.10712170600891113,
+    "needle_retrieved": true,
+    "memories": 278
+   }
+  },
+  {
+   "length": 4000,
+   "depth": 1.0,
+   "needle_idx": 7,
+   "attr": "team",
+   "answer": "Delhi Capitals",
+   "question": "What is the user's favourite team?",
+   "full": {
+    "answer": "I support Delhi Capitals.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 4165,
+    "latency": 3.0401668548583984
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 266,
+    "latency": 0.6992669105529785,
+    "retrieval_latency": 0.025423288345336914,
+    "ingest_latency": 0.07168006896972656,
+    "needle_retrieved": false,
+    "memories": 278
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 0,
+   "attr": "college",
+   "answer": "VIT Vellore",
+   "question": "What is the user's alma mater?",
+   "full": {
+    "answer": "VIT Vellore is the user's alma mater.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8388,
+    "latency": 7.0608625411987305
+   },
+   "memory": {
+    "answer": "VIT Vellore.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 261,
+    "latency": 0.8469419479370117,
+    "retrieval_latency": 0.032953500747680664,
+    "ingest_latency": 0.1558389663696289,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 1,
+   "attr": "instrument",
+   "answer": "guitar",
+   "question": "What does the user play musically?",
+   "full": {
+    "answer": "The user plays the guitar.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8500,
+    "latency": 6.331800222396851
+   },
+   "memory": {
+    "answer": "The user plays the guitar.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.7153923511505127,
+    "retrieval_latency": 0.025713443756103516,
+    "ingest_latency": 0.13405323028564453,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 2,
+   "attr": "allergy",
+   "answer": "sesame",
+   "question": "Which allergy does the user have?",
+   "full": {
+    "answer": "The user has a sesame allergy.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8312,
+    "latency": 6.312605619430542
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 253,
+    "latency": 0.6608521938323975,
+    "retrieval_latency": 0.03329730033874512,
+    "ingest_latency": 0.1231086254119873,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 3,
+   "attr": "sport",
+   "answer": "table tennis",
+   "question": "What game does the user play every weekend?",
+   "full": {
+    "answer": "The user plays table tennis every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8353,
+    "latency": 6.63459849357605
+   },
+   "memory": {
+    "answer": "Table tennis.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 264,
+    "latency": 0.518913745880127,
+    "retrieval_latency": 0.04660773277282715,
+    "ingest_latency": 0.24803638458251953,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 4,
+   "attr": "sport",
+   "answer": "basketball",
+   "question": "What sport does the user play?",
+   "full": {
+    "answer": "Basketball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8332,
+    "latency": 5.835002899169922
+   },
+   "memory": {
+    "answer": "Basketball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.49446821212768555,
+    "retrieval_latency": 0.02649235725402832,
+    "ingest_latency": 0.14998531341552734,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 5,
+   "attr": "laptop",
+   "answer": "Samsung Galaxy Book4",
+   "question": "Which laptop did the user buy?",
+   "full": {
+    "answer": "The user bought a Samsung Galaxy Book4 laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8258,
+    "latency": 6.672221422195435
+   },
+   "memory": {
+    "answer": "The user bought a Samsung Galaxy Book4 laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 269,
+    "latency": 1.105743169784546,
+    "retrieval_latency": 0.02457284927368164,
+    "ingest_latency": 0.12225461006164551,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 6,
+   "attr": "sport",
+   "answer": "badminton",
+   "question": "What game does the user play every weekend?",
+   "full": {
+    "answer": "The user plays badminton every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8395,
+    "latency": 6.638232231140137
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 264,
+    "latency": 0.8121681213378906,
+    "retrieval_latency": 0.03255105018615723,
+    "ingest_latency": 0.13156723976135254,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.0,
+   "needle_idx": 7,
+   "attr": "language",
+   "answer": "Mandarin",
+   "question": "Which new language is the user picking up?",
+   "full": {
+    "answer": "Python",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 8357,
+    "latency": 5.589807987213135
+   },
+   "memory": {
+    "answer": "Mandarin",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 276,
+    "latency": 0.5261111259460449,
+    "retrieval_latency": 0.040863752365112305,
+    "ingest_latency": 0.12789463996887207,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 0,
+   "attr": "car",
+   "answer": "Tata Nexon",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "Tata Nexon",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8265,
+    "latency": 5.933802604675293
+   },
+   "memory": {
+    "answer": "The user drives a Tata Nexon.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 256,
+    "latency": 1.2272908687591553,
+    "retrieval_latency": 0.029236316680908203,
+    "ingest_latency": 0.15337109565734863,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 1,
+   "attr": "team",
+   "answer": "Manchester United",
+   "question": "Which team is the user a fan of?",
+   "full": {
+    "answer": "Noted. Anything else you'd like to tell me?",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 8321,
+    "latency": 6.927791357040405
+   },
+   "memory": {
+    "answer": "Manchester United.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.4394962787628174,
+    "retrieval_latency": 0.025361061096191406,
+    "ingest_latency": 0.11638545989990234,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 2,
+   "attr": "birthday",
+   "answer": "2 August",
+   "question": "On which date was the user born?",
+   "full": {
+    "answer": "The user was born on 2 August.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8356,
+    "latency": 6.555558443069458
+   },
+   "memory": {
+    "answer": "The user was born on 2 August.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 1.0502688884735107,
+    "retrieval_latency": 0.03230452537536621,
+    "ingest_latency": 0.13641571998596191,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 3,
+   "attr": "college",
+   "answer": "Manipal",
+   "question": "What is the user's alma mater?",
+   "full": {
+    "answer": "Manipal",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8375,
+    "latency": 5.676913261413574
+   },
+   "memory": {
+    "answer": "Manipal",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 258,
+    "latency": 0.4293370246887207,
+    "retrieval_latency": 0.03277087211608887,
+    "ingest_latency": 0.1918315887451172,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 4,
+   "attr": "pet",
+   "answer": "Momo",
+   "question": "What is the user's dog called?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 8338,
+    "latency": 6.109979152679443
+   },
+   "memory": {
+    "answer": "Momo.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 267,
+    "latency": 0.499133825302124,
+    "retrieval_latency": 0.03346824645996094,
+    "ingest_latency": 0.1852588653564453,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 5,
+   "attr": "book",
+   "answer": "The Alchemist",
+   "question": "What is the user reading these days?",
+   "full": {
+    "answer": "The user is currently reading \"The Alchemist.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8399,
+    "latency": 6.705732822418213
+   },
+   "memory": {
+    "answer": "The user is currently reading \"The Alchemist.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 250,
+    "latency": 0.8609929084777832,
+    "retrieval_latency": 0.024538040161132812,
+    "ingest_latency": 0.1488034725189209,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 6,
+   "attr": "car",
+   "answer": "Toyota Innova",
+   "question": "What is the user's car?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 8334,
+    "latency": 7.628253698348999
+   },
+   "memory": {
+    "answer": "Toyota Innova",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.523921012878418,
+    "retrieval_latency": 0.03283882141113281,
+    "ingest_latency": 0.1628403663635254,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.25,
+   "needle_idx": 7,
+   "attr": "allergy",
+   "answer": "lactose",
+   "question": "What should the user avoid because of an allergy?",
+   "full": {
+    "answer": "Lactose",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8193,
+    "latency": 5.592944860458374
+   },
+   "memory": {
+    "answer": "Lactose.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 253,
+    "latency": 0.5795724391937256,
+    "retrieval_latency": 0.03717446327209473,
+    "ingest_latency": 0.2316892147064209,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 0,
+   "attr": "food",
+   "answer": "biryani",
+   "question": "What is the user's favourite food?",
+   "full": {
+    "answer": "The user's favourite food is biryani.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8444,
+    "latency": 6.676987171173096
+   },
+   "memory": {
+    "answer": "Biryani.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.6051185131072998,
+    "retrieval_latency": 0.04053378105163574,
+    "ingest_latency": 0.1317746639251709,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 1,
+   "attr": "gym",
+   "answer": "Anytime Fitness",
+   "question": "Where does the user work out?",
+   "full": {
+    "answer": "The user works out at their local gym.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 8383,
+    "latency": 6.564650297164917
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.7388839721679688,
+    "retrieval_latency": 0.0569610595703125,
+    "ingest_latency": 0.12350106239318848,
+    "needle_retrieved": false,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 2,
+   "attr": "laptop",
+   "answer": "Samsung Galaxy Book4",
+   "question": "What laptop does the user use?",
+   "full": {
+    "answer": "Samsung Galaxy Book4",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8244,
+    "latency": 5.802167892456055
+   },
+   "memory": {
+    "answer": "Samsung Galaxy Book4",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 265,
+    "latency": 0.5878024101257324,
+    "retrieval_latency": 0.049761295318603516,
+    "ingest_latency": 0.13295817375183105,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 3,
+   "attr": "book",
+   "answer": "The Alchemist",
+   "question": "What is the user reading these days?",
+   "full": {
+    "answer": "The user is currently reading \"The Alchemist.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8291,
+    "latency": 6.585114479064941
+   },
+   "memory": {
+    "answer": "The user is currently reading \"The Alchemist.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 250,
+    "latency": 1.1307485103607178,
+    "retrieval_latency": 0.033807992935180664,
+    "ingest_latency": 0.12243843078613281,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 4,
+   "attr": "birthday",
+   "answer": "2 August",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 8247,
+    "latency": 5.9142234325408936
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 306,
+    "latency": 0.7618834972381592,
+    "retrieval_latency": 0.04044389724731445,
+    "ingest_latency": 0.13230109214782715,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 5,
+   "attr": "gym",
+   "answer": "Gold's Gym",
+   "question": "What is the name of the user's gym?",
+   "full": {
+    "answer": "Gold's Gym",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8249,
+    "latency": 5.675384044647217
+   },
+   "memory": {
+    "answer": "Gold's Gym",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 267,
+    "latency": 0.44955968856811523,
+    "retrieval_latency": 0.03664875030517578,
+    "ingest_latency": 0.14384031295776367,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 6,
+   "attr": "language",
+   "answer": "Mandarin",
+   "question": "What language is the user studying?",
+   "full": {
+    "answer": "The user is currently studying Mandarin.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8219,
+    "latency": 6.173286437988281
+   },
+   "memory": {
+    "answer": "Mandarin",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 261,
+    "latency": 0.4741060733795166,
+    "retrieval_latency": 0.038483619689941406,
+    "ingest_latency": 0.11590933799743652,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.5,
+   "needle_idx": 7,
+   "attr": "sport",
+   "answer": "chess",
+   "question": "What game does the user play every weekend?",
+   "full": {
+    "answer": "The user plays chess every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8237,
+    "latency": 6.20290470123291
+   },
+   "memory": {
+    "answer": "Chess.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.3956263065338135,
+    "retrieval_latency": 0.03287792205810547,
+    "ingest_latency": 0.148423433303833,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 0,
+   "attr": "pet",
+   "answer": "Bella",
+   "question": "How is the user's dog named?",
+   "full": {
+    "answer": "Bella.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8339,
+    "latency": 5.776663780212402
+   },
+   "memory": {
+    "answer": "Bella.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 274,
+    "latency": 0.5120537281036377,
+    "retrieval_latency": 0.03341984748840332,
+    "ingest_latency": 0.1390974521636963,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 1,
+   "attr": "language",
+   "answer": "French",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "Python",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 8456,
+    "latency": 5.614103078842163
+   },
+   "memory": {
+    "answer": "French.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 258,
+    "latency": 0.4548647403717041,
+    "retrieval_latency": 0.0408475399017334,
+    "ingest_latency": 0.21538329124450684,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 2,
+   "attr": "car",
+   "answer": "Tata Punch",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 8486,
+    "latency": 6.123020887374878
+   },
+   "memory": {
+    "answer": "The user drives a Tata Punch.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 261,
+    "latency": 0.9172248840332031,
+    "retrieval_latency": 0.03320670127868652,
+    "ingest_latency": 0.136688232421875,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 3,
+   "attr": "doctor",
+   "answer": "Chawla",
+   "question": "What is the name of the user's doctor?",
+   "full": {
+    "answer": "Dr. Chawla",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8444,
+    "latency": 6.052261114120483
+   },
+   "memory": {
+    "answer": "Dr. Chawla",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 279,
+    "latency": 0.6136531829833984,
+    "retrieval_latency": 0.03308439254760742,
+    "ingest_latency": 0.12664341926574707,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 4,
+   "attr": "instrument",
+   "answer": "tabla",
+   "question": "What does the user play musically?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 8214,
+    "latency": 5.909693956375122
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 254,
+    "latency": 0.6946530342102051,
+    "retrieval_latency": 0.03687143325805664,
+    "ingest_latency": 0.1757946014404297,
+    "needle_retrieved": false,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 5,
+   "attr": "pet",
+   "answer": "Luna",
+   "question": "What is the name of the user's dog?",
+   "full": {
+    "answer": "Luna",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8392,
+    "latency": 5.681565523147583
+   },
+   "memory": {
+    "answer": "Luna.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 277,
+    "latency": 0.5640017986297607,
+    "retrieval_latency": 0.03198742866516113,
+    "ingest_latency": 0.17347979545593262,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 6,
+   "attr": "car",
+   "answer": "Tata Punch",
+   "question": "What is the user's car?",
+   "full": {
+    "answer": "Tata Punch",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8241,
+    "latency": 5.66211724281311
+   },
+   "memory": {
+    "answer": "Tata Punch",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 254,
+    "latency": 0.41977572441101074,
+    "retrieval_latency": 0.03581738471984863,
+    "ingest_latency": 0.12005114555358887,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 0.75,
+   "needle_idx": 7,
+   "attr": "pet",
+   "answer": "Snowy",
+   "question": "What is the name of the user's dog?",
+   "full": {
+    "answer": "Milo",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 8318,
+    "latency": 5.608552694320679
+   },
+   "memory": {
+    "answer": "Milo.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 273,
+    "latency": 0.5641424655914307,
+    "retrieval_latency": 0.03405451774597168,
+    "ingest_latency": 0.1186680793762207,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 0,
+   "attr": "car",
+   "answer": "Kia Seltos",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "The user drives a Kia Seltos.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8345,
+    "latency": 6.507471084594727
+   },
+   "memory": {
+    "answer": "The user drives a Kia Seltos.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 252,
+    "latency": 0.9899492263793945,
+    "retrieval_latency": 0.033180952072143555,
+    "ingest_latency": 0.10728335380554199,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 1,
+   "attr": "car",
+   "answer": "Renault Kwid",
+   "question": "What is the user's car?",
+   "full": {
+    "answer": "The user's car is a Renault Kwid.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8414,
+    "latency": 6.697430849075317
+   },
+   "memory": {
+    "answer": "Renault Kwid.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.6605079174041748,
+    "retrieval_latency": 0.03296947479248047,
+    "ingest_latency": 0.13872838020324707,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 2,
+   "attr": "pet",
+   "answer": "Toffee",
+   "question": "What is the name of the user's dog?",
+   "full": {
+    "answer": "Toffee",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8360,
+    "latency": 5.65024209022522
+   },
+   "memory": {
+    "answer": "Toffee",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 283,
+    "latency": 0.411344051361084,
+    "retrieval_latency": 0.033553361892700195,
+    "ingest_latency": 0.1394789218902588,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 3,
+   "attr": "book",
+   "answer": "Educated",
+   "question": "Which book is the user currently reading?",
+   "full": {
+    "answer": "The user is currently reading \"Educated.\"",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8295,
+    "latency": 6.4473536014556885
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 252,
+    "latency": 0.6241044998168945,
+    "retrieval_latency": 0.04110288619995117,
+    "ingest_latency": 0.16446256637573242,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 4,
+   "attr": "laptop",
+   "answer": "MacBook Air M3",
+   "question": "What laptop does the user use?",
+   "full": {
+    "answer": "The user uses a MacBook Air M3 laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8319,
+    "latency": 6.5555901527404785
+   },
+   "memory": {
+    "answer": "The user uses a MacBook Air M3 laptop.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 268,
+    "latency": 1.3284516334533691,
+    "retrieval_latency": 0.03267025947570801,
+    "ingest_latency": 0.12282156944274902,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 5,
+   "attr": "sport",
+   "answer": "basketball",
+   "question": "Which sport does the user play on weekends?",
+   "full": {
+    "answer": "The user plays basketball on weekends.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8316,
+    "latency": 6.214993715286255
+   },
+   "memory": {
+    "answer": "Basketball.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 261,
+    "latency": 0.4707663059234619,
+    "retrieval_latency": 0.03698229789733887,
+    "ingest_latency": 0.13678741455078125,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 6,
+   "attr": "gym",
+   "answer": "Fitness First",
+   "question": "Which gym does the user go to?",
+   "full": {
+    "answer": "The user goes to Fitness First.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8439,
+    "latency": 6.2944746017456055
+   },
+   "memory": {
+    "answer": "Fitness First.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.4314918518066406,
+    "retrieval_latency": 0.03234100341796875,
+    "ingest_latency": 0.12204337120056152,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 8000,
+   "depth": 1.0,
+   "needle_idx": 7,
+   "attr": "birthday",
+   "answer": "14 March",
+   "question": "On which date was the user born?",
+   "full": {
+    "answer": "The user was born on 14 March.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 8248,
+    "latency": 6.503496170043945
+   },
+   "memory": {
+    "answer": "14 March.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.576918363571167,
+    "retrieval_latency": 0.032997846603393555,
+    "ingest_latency": 0.14837408065795898,
+    "needle_retrieved": true,
+    "memories": 558
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 0,
+   "attr": "car",
+   "answer": "Kia Seltos",
+   "question": "What is the user's car?",
+   "full": {
+    "answer": "The user's car is a Kia Seltos.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16603,
+    "latency": 92.56335186958313
+   },
+   "memory": {
+    "answer": "The user's car is a Kia Seltos.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 1.3743000030517578,
+    "retrieval_latency": 0.04256701469421387,
+    "ingest_latency": 0.21334052085876465,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 1,
+   "attr": "college",
+   "answer": "LNMIIT Jaipur",
+   "question": "What is the user's alma mater?",
+   "full": {
+    "answer": "The user's alma mater is LNMIIT Jaipur.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16607,
+    "latency": 97.12596321105957
+   },
+   "memory": {
+    "answer": "LNMIIT Jaipur",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 260,
+    "latency": 0.7518730163574219,
+    "retrieval_latency": 0.03834247589111328,
+    "ingest_latency": 0.2252035140991211,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 2,
+   "attr": "sport",
+   "answer": "chess",
+   "question": "What sport does the user play?",
+   "full": {
+    "answer": "The user plays chess.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16624,
+    "latency": 73.18770909309387
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 256,
+    "latency": 0.6514158248901367,
+    "retrieval_latency": 0.049858808517456055,
+    "ingest_latency": 0.22023296356201172,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 3,
+   "attr": "car",
+   "answer": "MG Hector",
+   "question": "Which vehicle does the user own?",
+   "full": {
+    "answer": "The user owns a MG Hector.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16643,
+    "latency": 80.77879023551941
+   },
+   "memory": {
+    "answer": "The user owns an MG Hector.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 274,
+    "latency": 0.8956422805786133,
+    "retrieval_latency": 0.03303837776184082,
+    "ingest_latency": 0.2236790657043457,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 4,
+   "attr": "gym",
+   "answer": "Fitness First",
+   "question": "Where does the user work out?",
+   "full": {
+    "answer": "The user works out at home.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 16551,
+    "latency": 79.41153526306152
+   },
+   "memory": {
+    "answer": "Fitness First.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.5393507480621338,
+    "retrieval_latency": 0.0704355239868164,
+    "ingest_latency": 0.244920015335083,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 5,
+   "attr": "college",
+   "answer": "LNMIIT Jaipur",
+   "question": "What is the user's alma mater?",
+   "full": {
+    "answer": "LNMIIT Jaipur",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16666,
+    "latency": 74.03992700576782
+   },
+   "memory": {
+    "answer": "LNMIIT Jaipur",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 270,
+    "latency": 0.721135139465332,
+    "retrieval_latency": 0.04136824607849121,
+    "ingest_latency": 0.21805691719055176,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 6,
+   "attr": "food",
+   "answer": "pani puri",
+   "question": "What food does the user love most?",
+   "full": {
+    "answer": "The user loves pani puri.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16457,
+    "latency": 81.67620182037354
+   },
+   "memory": {
+    "answer": "The user loves pani puri most.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 248,
+    "latency": 0.9559903144836426,
+    "retrieval_latency": 0.06620550155639648,
+    "ingest_latency": 0.20737648010253906,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.0,
+   "needle_idx": 7,
+   "attr": "food",
+   "answer": "biryani",
+   "question": "What is the user's favourite food?",
+   "full": {
+    "answer": "The user's favourite food is biryani.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16569,
+    "latency": 89.74315547943115
+   },
+   "memory": {
+    "answer": "Biryani.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 258,
+    "latency": 0.6809253692626953,
+    "retrieval_latency": 0.048874616622924805,
+    "ingest_latency": 0.24696850776672363,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 0,
+   "attr": "job",
+   "answer": "mechanical engineer",
+   "question": "What is the user's profession?",
+   "full": {
+    "answer": "Mechanical Engineer",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16782,
+    "latency": 68.74880695343018
+   },
+   "memory": {
+    "answer": "Mechanical engineer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 253,
+    "latency": 0.5913774967193604,
+    "retrieval_latency": 0.05657219886779785,
+    "ingest_latency": 0.24576497077941895,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 1,
+   "attr": "job",
+   "answer": "data analyst",
+   "question": "What is the user's profession?",
+   "full": {
+    "answer": "The user's profession is a data analyst.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16746,
+    "latency": 88.72924900054932
+   },
+   "memory": {
+    "answer": "Data analyst.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 253,
+    "latency": 0.49410223960876465,
+    "retrieval_latency": 0.049356698989868164,
+    "ingest_latency": 0.23068881034851074,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 2,
+   "attr": "car",
+   "answer": "Mahindra Thar",
+   "question": "What car does the user drive?",
+   "full": {
+    "answer": "Mahindra Thar.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16647,
+    "latency": 77.47208333015442
+   },
+   "memory": {
+    "answer": "The user drives a Mahindra Thar.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 1.3304548263549805,
+    "retrieval_latency": 0.041602134704589844,
+    "ingest_latency": 0.25113940238952637,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 3,
+   "attr": "pet",
+   "answer": "Bella",
+   "question": "What is the name of the user's dog?",
+   "full": {
+    "answer": "The user's dog is named Buddy.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 16551,
+    "latency": 82.86860918998718
+   },
+   "memory": {
+    "answer": "Buddy",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 273,
+    "latency": 0.4112987518310547,
+    "retrieval_latency": 0.04415011405944824,
+    "ingest_latency": 0.23829030990600586,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 4,
+   "attr": "job",
+   "answer": "mechanical engineer",
+   "question": "What does the user do for a living?",
+   "full": {
+    "answer": "The user works as a mechanical engineer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16692,
+    "latency": 84.50969743728638
+   },
+   "memory": {
+    "answer": "The user works as a mechanical engineer.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 255,
+    "latency": 0.9327239990234375,
+    "retrieval_latency": 0.03303837776184082,
+    "ingest_latency": 0.21387672424316406,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 5,
+   "attr": "gym",
+   "answer": "Fitness First",
+   "question": "What is the name of the user's gym?",
+   "full": {
+    "answer": "Fitness First",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16723,
+    "latency": 64.74171876907349
+   },
+   "memory": {
+    "answer": "Fitness First.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 266,
+    "latency": 0.5369341373443604,
+    "retrieval_latency": 0.057096242904663086,
+    "ingest_latency": 0.2062835693359375,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 6,
+   "attr": "birthday",
+   "answer": "28 October",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 16514,
+    "latency": 72.52331185340881
+   },
+   "memory": {
+    "answer": "The user's birthday is on 28 October.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 306,
+    "latency": 0.9662952423095703,
+    "retrieval_latency": 0.04093813896179199,
+    "ingest_latency": 0.1487729549407959,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.25,
+   "needle_idx": 7,
+   "attr": "car",
+   "answer": "Maruti Swift",
+   "question": "Which vehicle does the user own?",
+   "full": {
+    "answer": "Maruti Swift.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16687,
+    "latency": 74.71184515953064
+   },
+   "memory": {
+    "answer": "Maruti Swift.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 272,
+    "latency": 0.6025903224945068,
+    "retrieval_latency": 0.040654897689819336,
+    "ingest_latency": 0.27425551414489746,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 0,
+   "attr": "pet",
+   "answer": "Bella",
+   "question": "What is the user's dog called?",
+   "full": {
+    "answer": "The user's dog is called Bella.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16683,
+    "latency": 85.87013292312622
+   },
+   "memory": {
+    "answer": "Snowy.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 272,
+    "latency": 0.5604090690612793,
+    "retrieval_latency": 0.04186391830444336,
+    "ingest_latency": 0.22366929054260254,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 1,
+   "attr": "job",
+   "answer": "product manager",
+   "question": "What does the user do for a living?",
+   "full": {
+    "answer": "The user works as a product manager.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16745,
+    "latency": 84.86809277534485
+   },
+   "memory": {
+    "answer": "The user work as a product manager.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 255,
+    "latency": 0.9992051124572754,
+    "retrieval_latency": 0.04135537147521973,
+    "ingest_latency": 0.2628178596496582,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 2,
+   "attr": "language",
+   "answer": "Mandarin",
+   "question": "What language is the user studying?",
+   "full": {
+    "answer": "The user is currently studying Mandarin.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16697,
+    "latency": 80.80943727493286
+   },
+   "memory": {
+    "answer": "Mandarin",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.6897568702697754,
+    "retrieval_latency": 0.08298754692077637,
+    "ingest_latency": 0.18173670768737793,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 3,
+   "attr": "language",
+   "answer": "Spanish",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "The user is learning English.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 16587,
+    "latency": 75.64313435554504
+   },
+   "memory": {
+    "answer": "Python.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 266,
+    "latency": 0.40728282928466797,
+    "retrieval_latency": 0.05192875862121582,
+    "ingest_latency": 0.26484036445617676,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 4,
+   "attr": "gym",
+   "answer": "Snap Fitness",
+   "question": "Where does the user work out?",
+   "full": {
+    "answer": "The user works out at their gym membership which is with Snap Fitness.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16655,
+    "latency": 104.69211053848267
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 274,
+    "latency": 0.8654849529266357,
+    "retrieval_latency": 0.06743621826171875,
+    "ingest_latency": 0.6025826930999756,
+    "needle_retrieved": false,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 5,
+   "attr": "laptop",
+   "answer": "Samsung Galaxy Book4",
+   "question": "What laptop does the user use?",
+   "full": {
+    "answer": "The user uses a Samsung Galaxy Book4.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16562,
+    "latency": 85.98682975769043
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 268,
+    "latency": 0.7285776138305664,
+    "retrieval_latency": 0.0470736026763916,
+    "ingest_latency": 0.20575785636901855,
+    "needle_retrieved": false,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 6,
+   "attr": "allergy",
+   "answer": "gluten",
+   "question": "What is the user allergic to?",
+   "full": {
+    "answer": "The user is allergic to peanuts.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 16522,
+    "latency": 79.172847032547
+   },
+   "memory": {
+    "answer": "Gluten.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 255,
+    "latency": 0.5031492710113525,
+    "retrieval_latency": 0.04020833969116211,
+    "ingest_latency": 0.23923277854919434,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.5,
+   "needle_idx": 7,
+   "attr": "sport",
+   "answer": "badminton",
+   "question": "What sport does the user play?",
+   "full": {
+    "answer": "The user plays badminton every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16733,
+    "latency": 88.50679922103882
+   },
+   "memory": {
+    "answer": "The user plays badminton.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 258,
+    "latency": 1.1023378372192383,
+    "retrieval_latency": 0.049689292907714844,
+    "ingest_latency": 0.3135402202606201,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 0,
+   "attr": "pet",
+   "answer": "Bruno",
+   "question": "What is the user's dog called?",
+   "full": {
+    "answer": "The user's dog is called Leo.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 16685,
+    "latency": 84.30908513069153
+   },
+   "memory": {
+    "answer": "Leo",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 268,
+    "latency": 0.32962989807128906,
+    "retrieval_latency": 0.043634653091430664,
+    "ingest_latency": 0.2339615821838379,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 1,
+   "attr": "birthday",
+   "answer": "2 August",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 16687,
+    "latency": 74.01225185394287
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 306,
+    "latency": 0.7721405029296875,
+    "retrieval_latency": 0.04192709922790527,
+    "ingest_latency": 0.22977447509765625,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 2,
+   "attr": "food",
+   "answer": "butter chicken",
+   "question": "What is the user's favourite food?",
+   "full": {
+    "answer": "The user's favourite food is butter chicken.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16558,
+    "latency": 86.09872961044312
+   },
+   "memory": {
+    "answer": "Butter chicken.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 259,
+    "latency": 0.6787469387054443,
+    "retrieval_latency": 0.06819391250610352,
+    "ingest_latency": 0.2634091377258301,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 3,
+   "attr": "allergy",
+   "answer": "wheat",
+   "question": "Which allergy does the user have?",
+   "full": {
+    "answer": "The user has an allergy to wheat.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16686,
+    "latency": 84.32649326324463
+   },
+   "memory": {
+    "answer": "The user has an allergy to wheat.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 250,
+    "latency": 1.2174038887023926,
+    "retrieval_latency": 0.05730485916137695,
+    "ingest_latency": 0.3526437282562256,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 4,
+   "attr": "birthday",
+   "answer": "28 October",
+   "question": "What is the user's date of birth?",
+   "full": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 16544,
+    "latency": 72.72161316871643
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 310,
+    "latency": 0.7926826477050781,
+    "retrieval_latency": 0.0413966178894043,
+    "ingest_latency": 0.3540220260620117,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 5,
+   "attr": "college",
+   "answer": "DTU",
+   "question": "Which college did the user graduate from?",
+   "full": {
+    "answer": "The user graduated from DTU.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16657,
+    "latency": 80.72237658500671
+   },
+   "memory": {
+    "answer": "DTU.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 278,
+    "latency": 0.5643389225006104,
+    "retrieval_latency": 0.04876375198364258,
+    "ingest_latency": 0.2786679267883301,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 6,
+   "attr": "food",
+   "answer": "dal makhani",
+   "question": "What food does the user love most?",
+   "full": {
+    "answer": "The user loves \"dal makhani\".",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16505,
+    "latency": 85.40660572052002
+   },
+   "memory": {
+    "answer": "dal makhani",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 255,
+    "latency": 0.7292501926422119,
+    "retrieval_latency": 0.04137301445007324,
+    "ingest_latency": 0.31588268280029297,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 0.75,
+   "needle_idx": 7,
+   "attr": "pet",
+   "answer": "Biscuit",
+   "question": "What is the name of the user's dog?",
+   "full": {
+    "answer": "The note doesn't mention anything about the user's dog.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 16689,
+    "latency": 97.80661082267761
+   },
+   "memory": {
+    "answer": "Biscuit.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 279,
+    "latency": 0.6604952812194824,
+    "retrieval_latency": 0.04125571250915527,
+    "ingest_latency": 0.2558159828186035,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 0,
+   "attr": "college",
+   "answer": "IIT Delhi",
+   "question": "What is the user's alma mater?",
+   "full": {
+    "answer": "The user's alma mater is IIT Delhi.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16572,
+    "latency": 89.8574891090393
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 262,
+    "latency": 0.6828601360321045,
+    "retrieval_latency": 0.03206491470336914,
+    "ingest_latency": 0.11744356155395508,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 1,
+   "attr": "sport",
+   "answer": "table tennis",
+   "question": "What sport does the user play?",
+   "full": {
+    "answer": "The user plays table tennis every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16619,
+    "latency": 81.25041222572327
+   },
+   "memory": {
+    "answer": "Table tennis.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 257,
+    "latency": 0.3841273784637451,
+    "retrieval_latency": 0.04100298881530762,
+    "ingest_latency": 0.20276737213134766,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 2,
+   "attr": "language",
+   "answer": "Korean",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "The user is currently learning Hindi.",
+    "correct": false,
+    "halluc": true,
+    "prompt_tokens": 16555,
+    "latency": 77.17578172683716
+   },
+   "memory": {
+    "answer": "Korean.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 264,
+    "latency": 0.3968846797943115,
+    "retrieval_latency": 0.04399752616882324,
+    "ingest_latency": 0.19423317909240723,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 3,
+   "attr": "book",
+   "answer": "The Midnight Library",
+   "question": "Which book did the user start recently?",
+   "full": {
+    "answer": "The user started \"The Midnight Library\" this week.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16629,
+    "latency": 92.06179904937744
+   },
+   "memory": {
+    "answer": "The Midnight Library.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 282,
+    "latency": 0.5475647449493408,
+    "retrieval_latency": 0.04817390441894531,
+    "ingest_latency": 0.16266798973083496,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 4,
+   "attr": "language",
+   "answer": "Italian",
+   "question": "Which language is the user learning?",
+   "full": {
+    "answer": "Italian",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16796,
+    "latency": 59.40158724784851
+   },
+   "memory": {
+    "answer": "Italian.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 264,
+    "latency": 0.4011702537536621,
+    "retrieval_latency": 0.049567222595214844,
+    "ingest_latency": 0.16039347648620605,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 5,
+   "attr": "sport",
+   "answer": "tennis",
+   "question": "What game does the user play every weekend?",
+   "full": {
+    "answer": "The user plays tennis every weekend.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16533,
+    "latency": 77.40062832832336
+   },
+   "memory": {
+    "answer": "Tennis.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.4423542022705078,
+    "retrieval_latency": 0.04130101203918457,
+    "ingest_latency": 0.19992685317993164,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 6,
+   "attr": "doctor",
+   "answer": "Mehta",
+   "question": "Who is the user's physician?",
+   "full": {
+    "answer": "Dr. Mehta",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16730,
+    "latency": 69.10154175758362
+   },
+   "memory": {
+    "answer": "Dr. Mehta.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 276,
+    "latency": 0.522566556930542,
+    "retrieval_latency": 0.03499650955200195,
+    "ingest_latency": 0.13027095794677734,
+    "needle_retrieved": true,
+    "memories": 1118
+   }
+  },
+  {
+   "length": 16000,
+   "depth": 1.0,
+   "needle_idx": 7,
+   "attr": "gym",
+   "answer": "Anytime Fitness",
+   "question": "Where does the user work out?",
+   "full": {
+    "answer": "The user works out at Anytime Fitness.",
+    "correct": true,
+    "halluc": false,
+    "prompt_tokens": 16672,
+    "latency": 85.59595465660095
+   },
+   "memory": {
+    "answer": "I don't know.",
+    "correct": false,
+    "halluc": false,
+    "prompt_tokens": 263,
+    "latency": 0.5985355377197266,
+    "retrieval_latency": 0.06305670738220215,
+    "ingest_latency": 0.1853926181793213,
+    "needle_retrieved": false,
+    "memories": 1118
+   }
+  }
+ ]
+}

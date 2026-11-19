@@ -1,0 +1,74 @@
+\documentclass[12pt,a4paper]{report}
+
+% ---------------------------------------------------------------------------
+% LNMIIT B.Tech Project report  --  Phase 2
+% ---------------------------------------------------------------------------
+\usepackage[a4paper,top=1in,bottom=1in,left=1.25in,right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\graphicspath{{figures/}}
+\captionsetup{labelfont={sc},font={small},labelsep=colon}
+\captionsetup[table]{position=below}
+\onehalfspacing
+\setlength{\parskip}{4pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{Chapter \thechapter.\ #1}{}}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,frame=single,columns=fullflexible,
+        keepspaces=true,showstringspaces=false,xleftmargin=4pt,framexleftmargin=2pt}
+
+\definecolor{c1}{HTML}{2a78d6}
+\definecolor{c2}{HTML}{eb6834}
+\definecolor{c3}{HTML}{1baf7a}
+\definecolor{c4}{HTML}{eda100}
+\definecolor{c5}{HTML}{6250d6}
+\definecolor{boxfill}{HTML}{f4f6fa}
+
+\input{numbers}   % auto-generated result numbers (benchmarks/plots.py)
+\newcommand{\projecttitle}{Context Window Analysis for Large Language Models:\\[2pt]Design and Evaluation of a Persistent Memory Layer}
+\newcommand{\shorttitle}{Context Window Analysis for Large Language Models}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+\pagenumbering{roman}
+\input{chapters/frontmatter}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+% ---------------------------------------------------------------------------
+\pagenumbering{arabic}
+\input{chapters/ch1_introduction}
+\input{chapters/ch2_literature}
+\input{chapters/ch3_proposed}
+\input{chapters/ch4_results}
+\input{chapters/ch5_conclusion}
+
+\input{chapters/bibliography}
+
+\end{document}

@@ -1,0 +1,9 @@
+\begin{table}[htbp]\centering\small\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc}\hline
+\textbf{Method} & \textbf{Single-hop} & \textbf{Temporal (current)} & \textbf{Temporal (before)} & \textbf{Multi-hop} & \textbf{Unanswerable}\\\hline
+Full context (whole history) & 62.4\% & 80.0\% & 13.3\% & 77.5\% & 40.0\%\\
+Sliding window (last 40 turns) & 10.0\% & 30.0\% & 0.0\% & 10.0\% & 95.0\%\\
+Vector RAG (Phase-1 design) & 80.6\% & 86.7\% & 50.0\% & 50.0\% & 75.0\%\\
+Memory layer (proposed) & 81.2\% & 90.0\% & 63.3\% & 80.0\% & 70.0\%\\
+\hline\end{tabular}}
+\caption{Accuracy by question type.}\label{tab:types}\end{table}

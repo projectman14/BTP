@@ -1,0 +1,56 @@
+Stored memories: 12  entities: 8
+
+  mem#0 s1 imp=0.90 ents=['jaipur']: The user live in Jaipur and the user work as a data analyst.
+  mem#2 s1 imp=0.90 ents=['priya']: The user's sister Priya visited the user last weekend.
+  mem#4 s1 imp=0.15 ents=[]: Can you suggest a good movie for tonight?
+  mem#6 s2 imp=0.70 ents=['milo', 'priya']: Priya adopted a cat and named it Milo.
+  mem#8 s2 imp=0.90 ents=['delhi', 'honda city', 'rohan']: The user's colleague Rohan lives in Delhi and drives a Honda City.
+  mem#10 s3 imp=0.90 ents=['pune']: The user moved to Pune last month, so the user is living in Pune now.
+
+Q: Where does the user currently live?
+  retrieved notes (chronological, injected into the prompt):
+    [Session 1, 2026-01-05] User (older note): The user live in Jaipur and the user work as a data analyst.
+    [Session 1, 2026-01-05] Assistant: Nice! Jaipur is a lovely city.
+    [Session 1, 2026-01-05] User: The user's sister Priya visited the user last weekend.
+    [Session 2, 2026-01-12] User: The user's colleague Rohan lives in Delhi and drives a Honda City.
+    [Session 3, 2026-01-19] User: The user moved to Pune last month, so the user is living in Pune now.
+  LLM raw answer : Pune.
+  grounding gate : supported (supported)
+  final answer   : Pune.
+  prompt tokens  : 279   latency: 38.37s
+
+Q: Where did the user live before moving?
+  retrieved notes (chronological, injected into the prompt):
+    [Session 1, 2026-01-05] User (older note): The user live in Jaipur and the user work as a data analyst.
+    [Session 1, 2026-01-05] Assistant: Nice! Jaipur is a lovely city.
+    [Session 1, 2026-01-05] User: The user's sister Priya visited the user last weekend.
+    [Session 2, 2026-01-12] User: The user's colleague Rohan lives in Delhi and drives a Honda City.
+    [Session 3, 2026-01-19] User: The user moved to Pune last month, so the user is living in Pune now.
+  LLM raw answer : Pune
+  grounding gate : supported (supported)
+  final answer   : Pune
+  prompt tokens  : 280   latency: 12.69s
+
+Q: What is the name of the cat adopted by the user's sister?
+  retrieved notes (chronological, injected into the prompt):
+    [Session 1, 2026-01-05] User: The user's sister Priya visited the user last weekend.
+    [Session 2, 2026-01-12] User: Priya adopted a cat and named it Milo.
+    [Session 2, 2026-01-12] Assistant: Milo is a cute name!
+    [Session 2, 2026-01-12] User: The user's colleague Rohan lives in Delhi and drives a Honda City.
+    [Session 3, 2026-01-19] User: The user moved to Pune last month, so the user is living in Pune now.
+  LLM raw answer : Milo
+  grounding gate : supported (supported)
+  final answer   : Milo
+  prompt tokens  : 275   latency: 12.21s
+
+Q: What car does the user drive?
+  retrieved notes (chronological, injected into the prompt):
+    [Session 1, 2026-01-05] User (older note): The user live in Jaipur and the user work as a data analyst.
+    [Session 1, 2026-01-05] User: The user's sister Priya visited the user last weekend.
+    [Session 2, 2026-01-12] User: Priya adopted a cat and named it Milo.
+    [Session 2, 2026-01-12] User: The user's colleague Rohan lives in Delhi and drives a Honda City.
+    [Session 3, 2026-01-19] User: The user moved to Pune last month, so the user is living in Pune now.
+  LLM raw answer : Honda City.
+  grounding gate : REJECTED (subject_mismatch)
+  final answer   : I don't know (the answer is not supported by my memory notes).
+  prompt tokens  : 280   latency: 12.26s

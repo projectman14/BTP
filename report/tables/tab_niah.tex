@@ -1,0 +1,11 @@
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lcccccc}\hline
+\textbf{History length} & \multicolumn{3}{c}{\textbf{Full context}} & \multicolumn{3}{c}{\textbf{Memory layer}}\\
+ & Acc. & Tokens & Latency & Acc. & Tokens & Latency\\\hline
+1k & 82\% & 1,080 & 1.11s & 90\% & 270 & 0.65s\\
+2k & 82\% & 2,096 & 1.85s & 92\% & 265 & 0.66s\\
+4k & 85\% & 4,184 & 3.03s & 80\% & 264 & 0.68s\\
+8k & 75\% & 8,335 & 6.23s & 82\% & 263 & 0.67s\\
+16k & 75\% & 16,634 & 81.64s & 72\% & 267 & 0.70s\\
+\hline\end{tabular}
+\caption{Needle-in-a-haystack scaling: accuracy, prompt size and latency versus history length.}\label{tab:niah}\end{table}

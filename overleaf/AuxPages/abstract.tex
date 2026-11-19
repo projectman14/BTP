@@ -1,0 +1,27 @@
+Large Language Models (LLMs) are stateless: they answer only from the tokens in the current context
+window, forget everything said in earlier sessions, and, as Phase 1 of this project showed, use long
+contexts poorly and hallucinate even when retrieval is added. Phase 1 analysed these limitations and
+proposed a persistent memory layer. This report describes Phase 2, in which the memory layer was built
+and evaluated.
+
+The implemented layer stores each conversation turn as a normalised note with an importance score, an
+embedding in a FAISS index, BM25 tokens and extracted entities in a memory--entity graph. At query time
+it combines dense and lexical retrieval with weighted reciprocal rank fusion, expands candidates through
+the entity graph, re-ranks them with a cross-encoder, scores them with relevance-gated recency,
+importance and coherence terms, resolves conflicting versions of a fact in favour of the newest, injects
+the top five notes into a 512-token prompt, and verifies the generated answer with a grounding gate.
+
+A long-term conversational benchmark with \nQuestions{} single-hop, temporal, multi-hop and unanswerable
+questions over \nUsers{} multi-session histories was built, and five strategies were compared with the
+same local model (\llmName): no memory, full conversation history, sliding window, the Phase-1
+vector-RAG design and the proposed layer. The memory layer with its gate reached \accMemGate\% accuracy
+and a \halMemGate\% hallucination rate, against \accFull\% and \halFull\% for the full history and
+\accRag\% and \halRag\% for vector RAG, while using \tokRatioFullMem{} times fewer prompt tokens than the
+full history. An ablation attributes the gains to the entity graph (multi-hop retrieval recall
+\rFiveVecMH\% $\rightarrow$ \rFiveMemMH\%), the conflict-aware update rule and memory scoring; importance
+pruning keeps full recall with half of the turns; and the grounding gate detects hallucinations with
+precision \gatePMem{} and F1 \gateFMem{} compared with 0.25 and 0.39 for the detectors studied in Phase 1.
+A needle-in-a-haystack experiment on histories up to \niahMaxLen{} tokens confirms that the layer's cost
+stays constant while full-context cost grows linearly. The results support the project's thesis that a
+selective, verified memory is a better basis for long-running LLM applications than a larger context
+window.

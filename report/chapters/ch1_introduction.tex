@@ -1,0 +1,83 @@
+\chapter{Introduction}
+
+\section{The Area of Work}
+Large Language Models (LLMs) are now used in chatbots, coding assistants, customer support systems and
+personal assistants that people talk to over days, weeks and months. The underlying Transformer
+architecture, however, is stateless: every request is answered only from the tokens that fit in the current
+context window. Everything that was said in an earlier session is forgotten unless it is sent again.
+
+This project lies at the intersection of Large Language Models, text embeddings, vector databases,
+information retrieval and knowledge graphs. The first phase of the project (April 2026) analysed the
+limitations of the context window and of Retrieval-Augmented Generation (RAG), and \emph{proposed} a
+persistent memory layer. This second phase \emph{builds} that memory layer, benchmarks it against the
+alternatives, and reports what works and what does not.
+
+\section{Problem Addressed}
+In Phase 1 we established, using the RAGTruth dataset and Needle-in-a-Haystack (NIAH) experiments, two
+limitations of current systems:
+\begin{itemize}[nosep]
+  \item LLMs do not use long contexts effectively. Accuracy drops as the context grows and depends on
+        \emph{where} the relevant information sits (``lost in the middle'').
+  \item Retrieval alone does not remove hallucination. Hallucination detectors on RAGTruth reached high
+        recall (0.88--0.95) but very low precision (0.25--0.26), i.e.\ an F1 of only about 0.4.
+\end{itemize}
+Phase 1 therefore proposed a memory layer that stores conversation turns as embeddings in a vector
+database and injects only the most relevant memories into the prompt. Its future-work section listed the
+concrete components that were still missing: hybrid vector + BM25 search, a multi-stage retrieval pipeline
+with re-ranking, query expansion, memory scoring with ageing, a graph-based memory representation, an
+end-to-end pipeline, and a comparative evaluation against baseline LLMs and RAG.
+
+The problem addressed in this phase is to turn that proposal into a working, measurable system and to
+answer, with experiments, whether a memory layer actually gives better grounding, better efficiency and
+better long-term consistency than (a) a plain LLM, (b) a larger context window and (c) plain vector RAG.
+
+\section{Motivation}
+A chat assistant that re-sends the whole history on every turn pays for thousands of tokens per query and,
+as Phase 1 showed, still misses facts buried in the middle of that history. A sliding window of recent turns
+is cheap but forgets anything older than a few sessions. Vector RAG over the history is cheap and retrieves
+well when the question and the memory share wording, but it has no notion of \emph{which} facts are current,
+\emph{how} facts are connected through people and entities, or \emph{whether} the generated answer is
+actually supported by what was retrieved.
+
+A memory layer that selects a handful of relevant, current, connected notes and verifies the answer against
+them promises to be simultaneously cheaper, more accurate and less prone to hallucination. That promise
+needs to be tested rather than assumed, which is what this phase does.
+
+\section{Objectives}
+\begin{itemize}[nosep]
+  \item Implement the complete memory layer proposed in Phase 1 as a modular Python package: embedding
+        store (FAISS), BM25 keyword index, reciprocal-rank fusion, cross-encoder re-ranking, entity graph,
+        memory scoring, conflict-aware updates and token-budgeted context injection.
+  \item Add a grounding gate that checks whether a generated answer is supported by the injected memories,
+        and compare it with the Phase-1 hallucination-detection numbers.
+  \item Build a long-term conversational memory benchmark with single-hop, temporal (updated fact),
+        multi-hop and unanswerable questions, and a NIAH-style context-length benchmark.
+  \item Compare, with the same local LLM, five answering strategies: no memory, full conversation history,
+        sliding window, plain vector RAG (the Phase-1 design) and the proposed memory layer.
+  \item Quantify the contribution of each pipeline stage through an ablation study and study the trade-off
+        between memory pruning and recall.
+\end{itemize}
+
+\section{Existing System}
+\subsection{Retrieval-Augmented Generation (RAG)}
+RAG converts documents or conversation chunks into embeddings, stores them in a vector database and, at
+query time, prepends the top-$k$ nearest chunks to the prompt. It is the Phase-1 baseline design. RAG is
+stateless with respect to time: it does not know that ``I moved to Pune'' supersedes ``I live in Jaipur'',
+and it retrieves each chunk independently, so facts that are only connected through a person's name are
+easily missed.
+
+\subsection{Context Window Expansion}
+Modern models accept 32k to over a million tokens. Sending the whole conversation history is the simplest
+form of memory, but Phase 1 showed that effective context is much shorter than the advertised window, cost
+grows linearly with history length, and accuracy decays with length and position. We keep this approach as
+the ``full context'' baseline in all Phase-2 experiments.
+
+\subsection{Limitations of Existing Systems}
+Neither approach provides persistence with \emph{selectivity}: RAG is selective but not time- or
+entity-aware, while the full context is complete but neither selective nor efficient. Neither verifies that
+the final answer is grounded. The memory layer built in this phase is designed to close exactly these gaps.
+
+\section{Organisation of the Report}
+Chapter 2 reviews the literature, including the memory-system work that became relevant in this phase.
+Chapter 3 describes the design and implementation of the memory layer and the benchmarks. Chapter 4 reports
+the simulation results, and Chapter 5 concludes and lists future work.

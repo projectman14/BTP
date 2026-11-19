@@ -1,0 +1,12 @@
+\begin{table}[htbp]\centering\small\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc}\hline
+\textbf{Method} & \textbf{Accuracy} & \textbf{Acc. (answerable)} & \textbf{Halluc. rate} & \textbf{Abstain (unans.)} & \textbf{Prompt tokens}\\\hline
+Baseline LLM (no memory) & 18.2\% & 0.0\% & 0.0\% & 100.0\% & 117\\
+Full context (whole history) & 57.3\% & 61.1\% & 36.1\% & 40.0\% & 4,209\\
+Sliding window (last 40 turns) & 26.4\% & 11.1\% & 11.2\% & 95.0\% & 664\\
+Vector RAG (Phase-1 design) & 73.6\% & 73.3\% & 17.9\% & 75.0\% & 266\\
+\textbf{Memory layer (proposed)} & \textbf{78.2\%} & \textbf{80.0\%} & \textbf{15.5\%} & \textbf{70.0\%} & \textbf{267}\\
+\textbf{Memory layer + grounding gate} & \textbf{80.6\%} & \textbf{79.3\%} & \textbf{7.0\%} & \textbf{86.7\%} & \textbf{267}\\
+\hline\end{tabular}}
+\caption{End-to-end comparison on the long-term conversational memory benchmark (20 users, 330 questions, Qwen2.5-1.5B-Instruct).}
+\label{tab:main}\end{table}

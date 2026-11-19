@@ -1,0 +1,10 @@
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lccc}\hline
+\textbf{Detector} & \textbf{Precision} & \textbf{Recall} & \textbf{F1}\\\hline
+Phase 1: Mistral 7B (RAGTruth) & 0.25 & 0.92 & 0.39\\
+Phase 1: Llama 2 (RAGTruth) & 0.26 & 0.95 & 0.41\\
+Phase 1: TinyLlama (RAGTruth) & 0.25 & 0.88 & 0.38\\\hline
+Phase 2: grounding gate on vector RAG & 0.89 & 0.42 & 0.57\\
+Phase 2: grounding gate on memory layer & 0.93 & 0.55 & 0.69\\
+\hline\end{tabular}
+\caption{Hallucination detection: Phase-1 results versus the Phase-2 grounding gate.}\label{tab:halluc}\end{table}

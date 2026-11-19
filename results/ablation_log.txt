@@ -1,0 +1,25 @@
+W1119 11:51:38.465000 26436 site-packages\torch\distributed\elastic\multiprocessing\redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 2962.49it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\laksh\Documents\BTP\memory_layer\embeddings.py:10: FutureWarning: The `get_sentence_embedding_dimension` method has been renamed to `get_embedding_dimension`.
+  self.dim = self.model.get_sentence_embedding_dimension()
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|##########| 105/105 [00:00<00:00, 2133.48it/s]
+rag_vector                 R@1=0.589 R@3=0.863 R@5=0.904 MRR=0.829 temporal=0.70 11s
+bm25_only                  R@1=0.241 R@3=0.411 R@5=0.437 MRR=0.439 temporal=0.27 13s
+hybrid                     R@1=0.489 R@3=0.796 R@5=0.874 MRR=0.756 temporal=0.65 14s
+hybrid_qe                  R@1=0.548 R@3=0.800 R@5=0.896 MRR=0.794 temporal=0.62 16s
+hybrid_qe_rerank           R@1=0.541 R@3=0.841 R@5=0.889 MRR=0.801 temporal=0.60 26s
+hybrid_qe_rerank_graph     R@1=0.541 R@3=0.848 R@5=0.907 MRR=0.801 temporal=0.60 37s
+memory_layer               R@1=0.567 R@3=0.889 R@5=0.963 MRR=0.827 temporal=0.80 46s
+prune>=0.0: stored=288/288 R@5=0.963
+prune>=0.3: stored=160/288 R@5=0.959
+prune>=0.45: stored=49/288 R@5=0.926
+prune>=0.55: stored=28/288 R@5=0.804
+prune>=0.65: stored=19/288 R@5=0.763
+conflict thr 0.3: temporal_ok=0.933 R@5=0.956
+conflict thr 0.4: temporal_ok=0.817 R@5=0.952
+conflict thr 0.45: temporal_ok=0.800 R@5=0.963
+conflict thr 0.5: temporal_ok=0.767 R@5=0.963
+conflict thr 0.6: temporal_ok=0.600 R@5=0.967
+conflict thr 1.01: temporal_ok=0.600 R@5=0.967
+saved results/ablation.json
